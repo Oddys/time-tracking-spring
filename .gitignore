@@ -1,0 +1,18 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package file
+*.jar
+*.war
+
+.idea/
+*.iml
