@@ -80,7 +80,7 @@
             </c:if>
         </ul>
     </c:if>
-    <form action="${pageContext.request.contextPath}">
+    <form action="main">
         <input type="submit" value="<fmt:message key="button.main"/>"/>
     </form>
 </body>

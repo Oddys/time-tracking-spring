@@ -24,8 +24,8 @@ public class ShowActivitiesController {
     private final AttributeSetter attributeSetter;
 
     @GetMapping("/show-activities")
-    public String showActivities(@RequestParam int currentPage,
-            @RequestParam int rowsPerPage, HttpSession session) {
+    public String showActivities(@RequestParam(defaultValue = "0") int currentPage,
+            @RequestParam(defaultValue = "5") int rowsPerPage, HttpSession session) {
         Pageable pageable = PageRequest.of(currentPage, rowsPerPage);
         Page<ActivityDto> page = service.findAll(pageable);
         List<ActivityDto> activities = IteratorUtils.toList(page.iterator());

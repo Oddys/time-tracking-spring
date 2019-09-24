@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class SignOutController {
-    @GetMapping("signout")
+    @GetMapping("/signout")
     public String signOut(HttpSession session) {
         session.invalidate();
         return "redirect:/";
