@@ -1,18 +1,12 @@
 package org.oddys.timetrackingspring.util;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+@NoArgsConstructor
 public class ParameterValidator {
-    private static final ParameterValidator INSTANCE = new ParameterValidator();
-
-    private ParameterValidator() {}
-
-    public static ParameterValidator getInstance() {
-        return INSTANCE;
-    }
-
     public boolean isValidAddActivityRecord(HttpServletRequest request) {
         if (StringUtils.isBlank(request.getParameter("date"))) {
             request.setAttribute("messageKey", "param.empty.date");
@@ -48,6 +42,18 @@ public class ParameterValidator {
     public boolean isValidAddActivity(HttpServletRequest request) {
         if (StringUtils.isBlank(request.getParameter("activityName"))) {
             request.setAttribute("messageKey", "param.activity.name");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidSignIn(HttpServletRequest request) {
+        if (StringUtils.isBlank(request.getParameter("login"))) {
+            request.getSession().setAttribute("messageKey", "auth.error.nologin");
+            return false;
+        }
+        if (StringUtils.isBlank(request.getParameter("password"))) {
+            request.getSession().setAttribute("messageKey", "auth.error.nopassword");
             return false;
         }
         return true;

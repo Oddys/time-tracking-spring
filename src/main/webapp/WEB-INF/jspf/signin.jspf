@@ -3,9 +3,9 @@
 </head>
 <body>
     <form action="signin" method="post">
-        <div id="error-message"></div>
-        <c:if test="${not empty requestScope.errorMessageKey}">
-            <fmt:message key="${requestScope.errorMessageKey}"/>
+        <c:if test="${not empty messageKey}">
+            <fmt:message key="${messageKey}"/>
+            <c:set var="messageKey" value="" scope="session"/>
         </c:if><br/>
         <input type="hidden" name="command" value="signin"/>
         <fmt:message key="auth.login"/><br/>
