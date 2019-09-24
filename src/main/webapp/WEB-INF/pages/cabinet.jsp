@@ -1,4 +1,6 @@
-<%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
+<%--@elvariable id="user" type="org.oddys.timetrackingspring.dto.UserDto"--%>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title><fmt:message key="title.main"/> - <fmt:message key="title.cabinet"/></title>
@@ -26,3 +28,4 @@
     </c:choose>
 </body>
 </html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

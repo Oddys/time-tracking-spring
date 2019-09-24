@@ -11,14 +11,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="activities")
+@Table(name = "roles")
 @Data
 @NoArgsConstructor
-public class Activity {
+public class Role {
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  private long activityId;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long roleId;
 
   @NotNull
-  private String activityName;
+  private String roleName;
 }

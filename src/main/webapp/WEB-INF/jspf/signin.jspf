@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/controller" method="post">
+    <form action="signin" method="post">
         <div id="error-message"></div>
         <c:if test="${not empty requestScope.errorMessageKey}">
             <fmt:message key="${requestScope.errorMessageKey}"/>
