@@ -18,13 +18,13 @@ public class ActivityAccessImpl implements ActivityAccess {
         return repository.findActivityByActivityNameEquals(name);
     }
 
-    @Override
-    public Long countRows() {
-        return repository.count();
-    }
-
 //    @Override
-//    public Page<Activity> findAll(Pageable pageable) {
-//        return repository.findAll(pageable);
+//    public Long countRows() {
+//        return repository.count();
 //    }
+
+    @Override
+    public Page<Activity> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 }

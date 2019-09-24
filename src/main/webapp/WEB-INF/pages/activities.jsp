@@ -5,6 +5,8 @@
 <%--@elvariable id="numPages" type="long"--%>
 <%--@elvariable id="messageKey" type="String"--%>
 <%--@elvariable id="activityName" type="String"--%>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title><fmt:message key="title.activities"/></title>
@@ -47,46 +49,29 @@
                         </form>
                     </td>
                 </c:if>
-<%--                <td>--%>
-<%--                    <c:choose>--%>
-<%--                        <c:when test="${user.roleName eq 'USER' and activity.approved}">--%>
-<%--                            <form action="controller" method="post">--%>
-<%--                                <input type="hidden" name="command" value="assign_activity"/>--%>
-<%--&lt;%&ndash;                                <input type="hidden" name="action" value="add"/>&ndash;%&gt;--%>
-<%--                                <input type="hidden" name="activityId" value="${activity.id}"/>--%>
-<%--                                <input type="hidden" name="userId" value="${user.userId}"/>--%>
-<%--                                <input type="hidden" name="activityName" value="${activity.name}"/>--%>
-<%--                                <input type="submit" value="<fmt:message key="table.column.add.to.my.activities"/>"/>--%>
-<%--                            </form>--%>
-<%--                        </c:when>--%>
-<%--&lt;%&ndash;                        <c:otherwise>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <fmt:message key="user.activity.notavailable"/>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:otherwise>&ndash;%&gt;--%>
-<%--                    </c:choose>--%>
-<%--                </td>--%>
             </tr>
         </c:forEach>
     </table>
     <c:if test="${not empty activities}">
         <ul>
-            <c:if test="${currentPage != 1}">
+            <c:if test="${currentPage != 0}">
                 <li>
                     <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${currentPage-1}">
                         <fmt:message key="nav.previous"/>
                     </a>
                 </li>
             </c:if>
-            <c:forEach begin="1" end="${numPages}" var="i">
+            <c:forEach begin="0" end="${numPages-1}" var="i">
                 <c:choose>
                     <c:when test="${currentPage eq i}">
-                        <li>${i}</li>
+                        <li>${i+1}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${i}">${i}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${i}">${i+1}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <c:if test="${currentPage lt numPages}">
+            <c:if test="${currentPage lt numPages-1}">
                 <li>
                     <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${currentPage+1}">
                         <fmt:message key="nav.next"/>
@@ -100,3 +85,4 @@
     </form>
 </body>
 </html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
