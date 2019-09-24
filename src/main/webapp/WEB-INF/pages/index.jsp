@@ -1,3 +1,5 @@
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title><fmt:message key="title.main"/></title>
@@ -13,3 +15,4 @@
     </c:choose>
 </body>
 </html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

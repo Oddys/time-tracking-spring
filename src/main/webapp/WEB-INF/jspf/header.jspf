@@ -11,19 +11,7 @@
     <header>
         <h1><a href="${pageContext.request.contextPath}"><fmt:message key="title.main"/></a></h1>
     </header>
-<%--    <ul>--%>
-<%--        <li style="display: inline"><a href="controller?command=change_lang&lang=en">EN</a></li>--%>
-<%--        <li style="display: inline"><a href="controller?command=change_lang&lang=uk">UA</a></li>--%>
-<%--    </ul>--%>
-
-<%--    <a href="${pageContext.request.contextPath}${pageContext.request.servletPath}?lang=en"><fmt:message key="lang.en"/></a>--%>
-<%--    <a href="${pageContext.request.contextPath}${pageContext.request.servletPath}?lang=uk"><fmt:message key="lang.ua"/></a>--%>
-
-<%--    <a href="?lang=en"><fmt:message key="lang.en"/></a>--%>
-<%--    <a href="?lang=uk"><fmt:message key="lang.ua"/></a>--%>
-
-    <form action="controller">
-        <input type="hidden" name="command" value="change_lang"/>
+    <form action="lang">
         <input type="hidden" name="sentFromPage" value="${pageContext.request.servletPath}"/>
         <select name="lang" onchange="submit()">
             <option value="en" ${lang == 'en' ? 'selected' : ''}><fmt:message key="lang.en"/></option>

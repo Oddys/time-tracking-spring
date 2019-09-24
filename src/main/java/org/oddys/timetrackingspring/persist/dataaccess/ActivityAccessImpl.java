@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import org.oddys.timetrackingspring.persist.ActivityAccess;
 import org.oddys.timetrackingspring.persist.entity.Activity;
 import org.oddys.timetrackingspring.persist.repo.ActivityRepository;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 @AllArgsConstructor
@@ -24,8 +23,8 @@ public class ActivityAccessImpl implements ActivityAccess {
         return repository.count();
     }
 
-    @Override
-    public List<Activity> findAll() {
-        return repository.findAll(Sort.by("activity_name"));
-    }
+//    @Override
+//    public Page<Activity> findAll(Pageable pageable) {
+//        return repository.findAll(pageable);
+//    }
 }
