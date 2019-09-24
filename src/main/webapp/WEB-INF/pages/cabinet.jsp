@@ -13,8 +13,7 @@
             <fmt:param value="${sessionScope.user.lastName}"/>
         </fmt:message>
     </p>
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="signout"/>
+    <form action="signout">
         <input type="submit" value="<fmt:message key="button.signout"/>">
     </form>
 
