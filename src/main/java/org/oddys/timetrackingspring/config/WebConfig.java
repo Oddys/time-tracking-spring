@@ -1,6 +1,7 @@
 package org.oddys.timetrackingspring.config;
 
 import org.modelmapper.ModelMapper;
+import org.oddys.timetrackingspring.util.AttributeSetter;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
 import org.springframework.context.annotation.Bean;
@@ -31,5 +32,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ParameterValidator parameterValidator() {
         return new ParameterValidator();
+    }
+
+    @Bean
+    public AttributeSetter attributeSetter() {
+        return new AttributeSetter();
     }
 }
