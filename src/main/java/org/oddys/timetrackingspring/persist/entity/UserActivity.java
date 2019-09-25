@@ -14,29 +14,27 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_activities")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserActivity {
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  private Long userId;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long userActivityId;
 
   @NotNull
-  private String login;
+  private Boolean assigned;
 
   @NotNull
-  private String password;
-
-  @NotNull
-  private String firstName;
-
-  @NotNull
-  private String lastName;
+  private Boolean statusChangeRequested;
 
   @ManyToOne
-  @JoinColumn(name = "role_id")
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "activity_id")
   @NotNull
-  private Role role;
+  private Activity activity;
 }

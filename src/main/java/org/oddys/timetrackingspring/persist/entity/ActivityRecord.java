@@ -12,31 +12,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "users")
+@Table(name = "activity_records")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class ActivityRecord {
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  private Long userId;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long activityRecordId;
 
   @NotNull
-  private String login;
+  private LocalDate activityDate;
 
   @NotNull
-  private String password;
-
-  @NotNull
-  private String firstName;
-
-  @NotNull
-  private String lastName;
+  private Long duration;
 
   @ManyToOne
-  @JoinColumn(name = "role_id")
+  @JoinColumn(name = "user_activity_id")
   @NotNull
-  private Role role;
+  private UserActivity userActivity;
 }

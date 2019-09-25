@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Activity {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  private long activityId;
+  private Long activityId;
 
   @NotNull
   private String activityName;
