@@ -15,4 +15,14 @@ public class UserAccessImpl implements UserAccess {
     public User findByLogin(String login) {
         return repository.findUserByLoginEquals(login);
     }
+
+    @Override
+    public boolean exists(String login) {
+        return repository.existsByLogin(login);
+    }
+
+    @Override
+    public boolean add(User user) {
+        return repository.save(user) != null;
+    }
 }

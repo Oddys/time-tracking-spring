@@ -6,7 +6,6 @@ import org.oddys.timetrackingspring.service.SignInService;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 

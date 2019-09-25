@@ -1,5 +1,6 @@
 package org.oddys.timetrackingspring.persist.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="activities")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Activity {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)

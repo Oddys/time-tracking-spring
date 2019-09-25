@@ -2,6 +2,7 @@ package org.oddys.timetrackingspring.config;
 
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.util.AttributeSetter;
+import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/cabinet").setViewName("cabinet");
         registry.addViewController("/activities").setViewName("activities");
+        registry.addViewController("/user-data").setViewName("user-data");
     }
 
     @Bean
@@ -37,5 +39,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public AttributeSetter attributeSetter() {
         return new AttributeSetter();
+    }
+
+    @Bean
+    public EntityMapper entityMapper() {
+        return new EntityMapper(passwordManager());
     }
 }
