@@ -9,6 +9,7 @@ import org.oddys.timetrackingspring.util.AttributeSetter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +27,7 @@ public class ShowActivitiesController {
     @GetMapping("/show-activities")
     public String showActivities(@RequestParam(defaultValue = "0") int currentPage,
             @RequestParam(defaultValue = "5") int rowsPerPage, HttpSession session) {
-        Pageable pageable = PageRequest.of(currentPage, rowsPerPage);
-        Page<ActivityDto> page = service.findAll(pageable);
+        Page<ActivityDto> page = service.findAll(currentPage, rowsPerPage);
         List<ActivityDto> activities = IteratorUtils.toList(page.iterator());
         attributeSetter.setShowActivities(session, activities, currentPage,
                 rowsPerPage, page.getTotalPages());
