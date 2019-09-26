@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <html>
 <head>
@@ -17,12 +18,11 @@
             <input type="submit" value="<fmt:message key="button.show"/>"/>
         </form>
         <h3><fmt:message key="activity.my"/></h3>
-        <form action="controller">
-            <input type="hidden" name="command" value="show_user_activities"/>
-            <input type="hidden" name="userId" value="${user.userId}"/>
-            <input type="hidden" name="userFirstName" value="${user.firstName}"/>
-            <input type="hidden" name="userLastName" value="${user.lastName}"/>
+        <form:form action="cabinet/show-user-activities" modelAttribute="userDto" method="get">
+            <form:input type="hidden" path="userId" value="${user.userId}"/>
+            <form:input type="hidden" path="firstName" value="${user.firstName}"/>
+            <form:input type="hidden" path="lastName" value="${user.lastName}"/>
             <input type="submit" value="<fmt:message key="button.show"/>"/>
-        </form>
+        </form:form>
     </body>
 </html>

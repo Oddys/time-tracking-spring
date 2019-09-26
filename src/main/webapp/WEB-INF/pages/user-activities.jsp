@@ -1,6 +1,8 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="userActivities" type="java.util.List"--%>
 <%--@elvariable id="errorMessageKey" type="java.lang.String"--%>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title>
@@ -82,3 +84,4 @@
     </form>
 </body>
 </html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
