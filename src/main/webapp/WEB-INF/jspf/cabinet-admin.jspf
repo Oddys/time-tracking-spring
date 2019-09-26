@@ -3,7 +3,7 @@
 </head>
 <body>
     <h3><fmt:message key="title.user.add"/> </h3>
-    <form action="user-data">
+    <form action="cabinet/user-data">
         <input type="submit" value="<fmt:message key="button.add"/>"/>
     </form>
     <h3><fmt:message key="activity.all"/></h3>
