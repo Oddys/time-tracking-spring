@@ -2,11 +2,7 @@ package org.oddys.timetrackingspring.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.convention.MatchingStrategies;
-import org.oddys.timetrackingspring.dto.UserActivityDto;
 import org.oddys.timetrackingspring.filter.AuthFilter;
-import org.oddys.timetrackingspring.persist.entity.UserActivity;
 import org.oddys.timetrackingspring.util.AttributeSetter;
 import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
@@ -28,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/cabinet").setViewName("cabinet");
         registry.addViewController("/activities").setViewName("activities");
         registry.addViewController("/cabinet/user-data").setViewName("user-data");
-        registry.addViewController("/cabinet/user-activities").setViewName("user-activities");
+        registry.addViewController("/cabinet/user-activities")
+                .setViewName("cabinet/user-activities");
     }
 
     @Bean

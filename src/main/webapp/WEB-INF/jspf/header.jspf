@@ -12,7 +12,7 @@
     <header>
         <h1><a href="${pageContext.request.contextPath}"><fmt:message key="title.main"/></a></h1>
     </header>
-    <form action="lang">
+    <form action="${pageContext.request.contextPath}/lang">
         <input type="hidden" name="sentFromPage" value="${pageContext.request.servletPath}"/>
         <select name="lang" onchange="submit()">
             <option value="en" ${lang == 'en' ? 'selected' : ''}><fmt:message key="lang.en"/></option>
