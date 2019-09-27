@@ -3,7 +3,6 @@ package org.oddys.timetrackingspring.config;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.filter.AuthFilter;
-import org.oddys.timetrackingspring.util.AttributeSetter;
 import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
@@ -43,11 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ParameterValidator parameterValidator() {
         return new ParameterValidator();
-    }
-
-    @Bean
-    public AttributeSetter attributeSetter() {
-        return new AttributeSetter();
     }
 
     @Bean

@@ -1,10 +1,6 @@
-<%--@elvariable id="activities" type="java.util.List"--%>
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
-<%--@elvariable id="currentPage" type="long"--%>
-<%--@elvariable id="rowsPerPage" type="int"--%>
-<%--@elvariable id="numPages" type="long"--%>
-<%--@elvariable id="messageKey" type="String"--%>
 <%--@elvariable id="activityName" type="String"--%>
+<%--@elvariable id="activitiesPage" type="org.oddys.timetrackingspring.dto.ActivitiesPageDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
@@ -34,14 +30,13 @@
                 <th><fmt:message key="table.column.action"/></th>
             </c:if>
         </tr>
-        <c:forEach items="${activities}" var="activity">
+        <c:forEach items="${activitiesPage.activities}" var="activity">
             <tr>
                 <td>${activity.name}</td>
                 <c:if test="${user.roleName eq 'USER'}">
                     <td>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="assign_activity"/>
-                                <%--                                <input type="hidden" name="action" value="add"/>--%>
                             <input type="hidden" name="activityId" value="${activity.id}"/>
                             <input type="hidden" name="userId" value="${user.userId}"/>
                             <input type="hidden" name="activityName" value="${activity.name}"/>
@@ -52,28 +47,28 @@
             </tr>
         </c:forEach>
     </table>
-    <c:if test="${not empty activities}">
+    <c:if test="${not empty activitiesPage.activities}">
         <ul>
-            <c:if test="${currentPage != 0}">
+            <c:if test="${activitiesPage.currentPage != 0}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${currentPage-1}">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${activitiesPage.rowsPerPage}&currentPage=${activitiesPage.currentPage-1}">
                         <fmt:message key="nav.previous"/>
                     </a>
                 </li>
             </c:if>
-            <c:forEach begin="0" end="${numPages-1}" var="i">
+            <c:forEach begin="0" end="${activitiesPage.numPages-1}" var="i">
                 <c:choose>
-                    <c:when test="${currentPage eq i}">
+                    <c:when test="${activitiesPage.currentPage eq i}">
                         <li>${i+1}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${i}">${i+1}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${activitiesPage.rowsPerPage}&currentPage=${i}">${i+1}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <c:if test="${currentPage lt numPages-1}">
+            <c:if test="${activitiesPage.currentPage lt activitiesPage.numPages-1}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${rowsPerPage}&currentPage=${currentPage+1}">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${activitiesPage.rowsPerPage}&currentPage=${activitiesPage.currentPage+1}">
                         <fmt:message key="nav.next"/>
                     </a>
                 </li>
