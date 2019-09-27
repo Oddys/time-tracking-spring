@@ -1,22 +1,23 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="userActivities" type="java.util.List"--%>
 <%--@elvariable id="errorMessageKey" type="java.lang.String"--%>
+<%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title>
         <fmt:message key="title.activities.user">
-            <fmt:param value="${userFirstName}"/>
-            <fmt:param value="${userLastName}"/>
+            <fmt:param value="${targetUser.firstName}"/>
+            <fmt:param value="${targetUser.lastName}"/>
         </fmt:message>
     </title>
 </head>
 <body>
     <h2>
         <fmt:message key="title.activities.user">
-            <fmt:param value="${userFirstName}"/>
-            <fmt:param value="${userLastName}"/>
+            <fmt:param value="${targetUser.firstName}"/>
+            <fmt:param value="${targetUser.lastName}"/>
         </fmt:message>
     </h2>
     <c:if test="${not empty messageKey}">
@@ -58,7 +59,7 @@
                 <td>
                     <form action="controller">
                         <input type="hidden" name="command" value="show_activity_records">
-                        <input type="hidden" name="userActivityId" value="${currentUserActivity.id}"/>
+                        <input type="hidden" name="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <input type="hidden" name="userActivityAssigned" value="${currentUserActivity.assigned}"/>
                         <input type="hidden" name="currentPage" value="1"/>
                         <input type="hidden" name="rowsPerPage" value="5"/>
@@ -70,7 +71,7 @@
                         <c:if test="${currentUserActivity.assigned and not currentUserActivity.statusChangeRequested}">
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="stop_activity"/>
-                                <input type="hidden" name="userActivityId" value="${currentUserActivity.id}"/>
+                                <input type="hidden" name="userActivityId" value="${currentUserActivity.userActivityId}"/>
                                 <input type="submit" value="Stop activity"/>
                             </form>
                         </c:if>

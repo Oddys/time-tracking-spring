@@ -11,6 +11,7 @@ import org.oddys.timetrackingspring.util.AttributeSetter;
 import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
+import org.oddys.timetrackingspring.util.UserActivityMap;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,16 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper =  new ModelMapper();
-//        PropertyMap<UserActivity, UserActivityDto> userActivityMap = new PropertyMap<> (){
-//            protected void configure() {
-//                map().setActivityId(source.getActivity().getActivityId());
-//                map().setUserId(source.getUser().getUserId());
-//            }
-//        };
-//        mapper.addMappings(userActivityMap);
-//        mapper.getConfiguration().setAmbiguityIgnored(true);
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.addMappings(new UserActivityMap());
         return modelMapper;
     }
 

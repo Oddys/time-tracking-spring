@@ -4,6 +4,6 @@ import org.oddys.timetrackingspring.persist.entity.UserActivity;
 
 import java.util.List;
 
-public interface UserActivityAccessor {
+public interface UserActivityAccess {
     List<UserActivity> findAllByUserId(Long userId);
 }

@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@SessionAttributes({"userActivities", "targetUser"})
 public class UserActivitiesController {
     private final UserActivityService service;
 
@@ -28,10 +30,9 @@ public class UserActivitiesController {
     @GetMapping("cabinet/show-user-activities")
     public String showUserActivities(@Validated @ModelAttribute("userDto") UserDto userDto,
             BindingResult result,  Model model) {
-        log.debug("DTO: " + userDto);
         List userActivities = service.findUserActivityByUserId(userDto.getUserId());
-        model.addAttribute("activities", userActivities);
-        model.addAttribute("user", userDto);
+        model.addAttribute("userActivities", userActivities);
+        model.addAttribute("targetUser", userDto);
         return "redirect:/cabinet/user-activities";
     }
 }
