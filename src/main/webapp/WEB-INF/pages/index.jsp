@@ -10,7 +10,7 @@
             <%@ include file="/WEB-INF/jspf/signin.jspf" %>
         </c:when>
         <c:otherwise>
-            <jsp:forward page="/WEB-INF/pages/cabinet.jsp"/>
+            <c:redirect url="/cabinet"/>
         </c:otherwise>
     </c:choose>
 </body>

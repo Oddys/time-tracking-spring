@@ -18,7 +18,7 @@
             <input type="submit" value="<fmt:message key="button.show"/>"/>
         </form>
         <h3><fmt:message key="activity.my"/></h3>
-        <form:form action="cabinet/show-user-activities" modelAttribute="userDto" method="get">
+        <form:form action="cabinet/show-user-activities" modelAttribute="targetUser" method="get">
             <form:input type="hidden" path="userId" value="${user.userId}"/>
             <form:input type="hidden" path="firstName" value="${user.firstName}"/>
             <form:input type="hidden" path="lastName" value="${user.lastName}"/>
