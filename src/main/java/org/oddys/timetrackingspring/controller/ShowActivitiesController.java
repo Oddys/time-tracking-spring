@@ -29,6 +29,6 @@ public class ShowActivitiesController {
         List<ActivityDto> activities = IteratorUtils.toList(page.iterator());
         model.addAttribute("activitiesPage", new ActivitiesPageDto(
                 activities, currentPage, rowsPerPage, page.getTotalPages()));
-        return "redirect:/activities";
+        return "redirect:/cabinet/activities";
     }
 }

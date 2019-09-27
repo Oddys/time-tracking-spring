@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<html lang="${not empty lang ? lang : 'en'}">
 <html>
 <head>
     <title>User data</title>
@@ -27,7 +26,7 @@
         </select>
         <input type="submit" value="<fmt:message key="button.save"/>"/>
     </form>
-    <form action="main">
+    <form action="${pageContext.request.contextPath}">
         <input type="submit" value="<fmt:message key="button.main"/>"/>
     </form>
 </body>
