@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.filter.AuthFilter;
 import org.oddys.timetrackingspring.util.ActivityRecordMap;
+import org.oddys.timetrackingspring.util.ConfigManager;
 import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
@@ -60,5 +61,10 @@ public class WebConfig implements WebMvcConfigurer {
         bean.setFilter(new AuthFilter());
         bean.addUrlPatterns("/cabinet/*");
         return bean;
+    }
+
+    @Bean
+    public ConfigManager configManager() {
+        return new ConfigManager();
     }
 }
