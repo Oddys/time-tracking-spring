@@ -16,7 +16,7 @@ public class AddUserController {
     private final ParameterValidator validator;
     private final EntityMapper entityMapper;
 
-    @PostMapping("/add-user")
+    @PostMapping("/cabinet/add-user")
     public String addUser(HttpServletRequest request) {
         if (!validator.isValidAddUser(request)) {  // FIXME Make to work with a session
             return "redirect:/user-data";
@@ -25,6 +25,6 @@ public class AddUserController {
                 ? "Added successfully"
                 : "User already exists";
         request.getSession().setAttribute("messageKey", messageKey);
-        return "redirect:/user-data";
+        return "redirect:/cabinet/user-data";
     }
 }
