@@ -1,7 +1,9 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="userActivities" type="java.util.List"--%>
 <%--@elvariable id="errorMessageKey" type="java.lang.String"--%>
 <%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
+<%--@elvariable id="activityRecordsPageRequestDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
@@ -26,10 +28,7 @@
     <table>
         <tr>
             <th><fmt:message key="title.activity"/></th>
-<%--            <th><fmt:message key="activity.user.assigned"/></th>--%>
-<%--            <th><fmt:message key="table.column.status"/></th>--%>
             <th><fmt:message key="table.header.status"/> </th>
-<%--            <th><fmt:message key="table.column.action"/></th>--%>
             <th></th>
             <c:if test="${user.roleName eq 'USER'}">
                 <th></th>
@@ -38,8 +37,6 @@
         <c:forEach var="currentUserActivity" items="${userActivities}">
             <tr>
                 <td><c:out value="${currentUserActivity.activityName}"/></td>
-<%--                <td>${currentUserActivity.assigned}</td>--%>
-<%--                <td>${currentUserActivity.statusChangeRequested}</td>--%>
                 <td>
                     <c:choose>
                         <c:when test="${currentUserActivity.assigned and not currentUserActivity.statusChangeRequested}">
@@ -57,14 +54,13 @@
                     </c:choose>
                 </td>
                 <td>
-                    <form action="controller">
-                        <input type="hidden" name="command" value="show_activity_records">
-                        <input type="hidden" name="userActivityId" value="${currentUserActivity.userActivityId}"/>
-                        <input type="hidden" name="userActivityAssigned" value="${currentUserActivity.assigned}"/>
-                        <input type="hidden" name="currentPage" value="1"/>
-                        <input type="hidden" name="rowsPerPage" value="5"/>
+                    <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto" method="get">
+                        <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
+                        <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>
+                        <form:input type="hidden" path="currentPage" value="1"/>
+                        <form:input type="hidden" path="rowsPerPage" value="5"/>
                         <input type="submit" value="<fmt:message key="button.show"/>"/>
-                    </form>
+                    </form:form>
                 </td>
                 <c:if test="${user.roleName eq 'USER'}">
                     <td>

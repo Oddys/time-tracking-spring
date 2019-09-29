@@ -1,30 +1,22 @@
-<%--@elvariable id="activityRecords" type="java.util.List"--%>
-<%--@elvariable id="currentPage" type="java.util.Long"--%>
-<%--@elvariable id="numPages" type="java.util.Long"--%>
-<%--@elvariable id="rowsPerPage" type="java.util.Integer"--%>
-<%--@elvariable id="userActivityId" type="java.util.Long"--%>
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
-<%--@elvariable id="userActivityAssigned" type="java.lang.Boolean"--%>
+<%--@elvariable id="activityRecordsPageDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageDto"--%>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title><fmt:message key="title.activity.records"/></title>
 </head>
 <body>
     <h2>
-        <c:if test="${not empty activityRecords}">
+        <c:if test="${not empty activityRecordsPageDto.activityRecords}">
             <fmt:message key='title.user.activity.records'>
-                <fmt:param value='${activityRecords[0].userFirstName}'/>
-                <fmt:param value='${activityRecords[0].userLastName}'/>
-                <fmt:param value='${activityRecords[0].activityName}'/>
+                <fmt:param value='${activityRecordsPageDto.activityRecords[0].userFirstName}'/>
+                <fmt:param value='${activityRecordsPageDto.activityRecords[0].userLastName}'/>
+                <fmt:param value='${activityRecordsPageDto.activityRecords[0].activityName}'/>
             </fmt:message>
         </c:if>
     </h2>
-    <c:if test="${user.roleName eq 'USER' and userActivityAssigned}">
-        <%--                <form action="controller">--%>
-        <%--                    <input type="hidden" name="command" value="forward"/>--%>
-        <%--                    <input type="hidden" name="targetPage" value="/WEB-INF/pages/add-activity-record.jspf"/>--%>
-        <%--                    <input type="submit" value="Add Record"/>--%>
-        <%--                </form>--%>
+    <c:if test="${user.roleName eq 'USER' and activityRecordsPageDto.userActivityAssigned}">
         <%@ include file="/WEB-INF/jspf/add-activity-record.jspf"%>
     </c:if>
     <table>
@@ -37,7 +29,7 @@
 <%--                <th></th>--%>
 <%--            </c:if>--%>
         </tr>
-        <c:forEach items="${activityRecords}" var="record">
+        <c:forEach items="${activityRecordsPageDto.activityRecords}" var="record">
             <tr>
                 <td>${record.activityDate}</td>
                 <td>${record.duration}</td>
@@ -49,18 +41,18 @@
             </tr>
         </c:forEach>
     </table>
-    <c:if test="${not empty activityRecords}">
+    <c:if test="${not empty activityRecordsPageDto.activityRecords}">
         <ul>
-            <c:if test="${currentPage != 1}">
+            <c:if test="${activityRecordsPageDto.currentPage != 0}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/controller?command=show_activity_records&userActivityAssigned=${userActivityAssigned}&userActivityId=${userActivityId}&rowsPerPage=${rowsPerPage}&currentPage=${currentPage-1}">
+                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?&userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage-1}">
                         <fmt:message key="nav.previous"/>
                     </a>
                 </li>
             </c:if>
-            <c:forEach begin="1" end="${numPages}" var="i">
+            <c:forEach begin="0" end="${activityRecordsPageDto.numPages-1}" var="i">
                 <c:choose>
-                    <c:when test="${currentPage eq i}">
+                    <c:when test="${activityRecordsPageDto.currentPage eq i}">
                         <li>${i}</li>
                     </c:when>
                     <c:otherwise>
@@ -68,7 +60,7 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <c:if test="${currentPage lt numPages}">
+            <c:if test="${activityRecordsPageDto.currentPage lt activityRecordsPageDto.numPages}">
                 <li>
                     <a href="${pageContext.request.contextPath}/controller?command=show_activity_records&userActivityAssigned=${userActivityAssigned}&userActivityId=${userActivityId}&rowsPerPage=${rowsPerPage}&currentPage=${currentPage+1}">
                         <fmt:message key="nav.next"/>
@@ -84,3 +76,4 @@
     </form>
 </body>
 </html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

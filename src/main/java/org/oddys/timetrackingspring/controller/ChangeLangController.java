@@ -18,8 +18,6 @@ public class ChangeLangController {
     public String changeLanguage(@RequestParam(defaultValue = "en") String lang,
             @RequestParam(defaultValue = "/") String sentFromPage, Model model) {
         model.addAttribute("lang", lang);
-        String page = sentFromPage.replace(prefix, "").replace(suffix, "");
-        log.debug("Page: " + page);
         return "redirect:" + sentFromPage.replace(prefix, "").replace(suffix, "");
     }
 }

@@ -7,7 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface ActivityAccess {
     Activity findByName(String name);
 
-//    Long countRows();
-
     Page<Activity> findAll(Pageable pageable);
 }

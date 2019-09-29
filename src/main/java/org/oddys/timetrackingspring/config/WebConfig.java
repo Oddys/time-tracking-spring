@@ -3,6 +3,7 @@ package org.oddys.timetrackingspring.config;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.filter.AuthFilter;
+import org.oddys.timetrackingspring.util.ActivityRecordMap;
 import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
@@ -20,6 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/cabinet/activity-records")
+                .setViewName("/cabinet/activity-records");
         registry.addViewController("/cabinet/activities")
                 .setViewName("cabinet/activities");
         registry.addViewController("/cabinet/user-data")
@@ -32,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper =  new ModelMapper();
         modelMapper.addMappings(new UserActivityMap());
+        modelMapper.addMappings(new ActivityRecordMap());
         return modelMapper;
     }
 
