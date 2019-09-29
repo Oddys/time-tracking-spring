@@ -45,7 +45,7 @@
         <ul>
             <c:if test="${activityRecordsPageDto.currentPage != 0}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?&userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage-1}">
+                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage-1}">
                         <fmt:message key="nav.previous"/>
                     </a>
                 </li>
@@ -53,25 +53,25 @@
             <c:forEach begin="0" end="${activityRecordsPageDto.numPages-1}" var="i">
                 <c:choose>
                     <c:when test="${activityRecordsPageDto.currentPage eq i}">
-                        <li>${i}</li>
+                        <li>${i+1}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activity_records&userActivityAssigned=${userActivityAssigned}&userActivityId=${userActivityId}&rowsPerPage=${rowsPerPage}&currentPage=${i}">${i}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${i}">
+                                ${i+1}</a>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <c:if test="${activityRecordsPageDto.currentPage lt activityRecordsPageDto.numPages}">
+            <c:if test="${activityRecordsPageDto.currentPage lt activityRecordsPageDto.numPages-1}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/controller?command=show_activity_records&userActivityAssigned=${userActivityAssigned}&userActivityId=${userActivityId}&rowsPerPage=${rowsPerPage}&currentPage=${currentPage+1}">
+                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage+1}">
                         <fmt:message key="nav.next"/>
                     </a>
                 </li>
             </c:if>
         </ul>
     </c:if>
-    <form action="controller">
-        <input type="hidden" name="command" value="forward"/>
-        <input type="hidden" name="targetPage" value="/WEB-INF/pages/user-activities.jsp"/>
+    <form action="user-activities">
         <input type="submit" value="<fmt:message key="button.back.to.activities"/>"/>
     </form>
 </body>

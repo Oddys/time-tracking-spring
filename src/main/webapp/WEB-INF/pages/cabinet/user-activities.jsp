@@ -57,7 +57,7 @@
                     <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto" method="get">
                         <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>
-                        <form:input type="hidden" path="currentPage" value="1"/>
+                        <form:input type="hidden" path="currentPage" value="0"/>
                         <form:input type="hidden" path="rowsPerPage" value="5"/>
                         <input type="submit" value="<fmt:message key="button.show"/>"/>
                     </form:form>

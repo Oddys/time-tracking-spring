@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
@@ -26,6 +28,20 @@ public class ShowActivityRecordsController {
     private final ActivityRecordService service;
 
     @GetMapping("cabinet/show-activity-records")
+    public String show(@RequestParam Long userActivityId,
+            @RequestParam boolean userActivityAssigned,
+            @RequestParam int currentPage,
+            @RequestParam int rowsPerPage, Model model) {
+        Page<ActivityRecordDto> page = service.findAll(currentPage, rowsPerPage);
+        List<ActivityRecordDto> activityRecords = IteratorUtils.toList(page.iterator());
+        ActivityRecordsPageDto dto = new ActivityRecordsPageDto(activityRecords,
+                page.getTotalPages(), userActivityId, userActivityAssigned,
+                currentPage, rowsPerPage);
+        model.addAttribute("activityRecordsPageDto", dto);
+        return "redirect:/cabinet/activity-records";
+    }
+
+    @PostMapping("cabinet/show-activity-records")
     public String show(@Validated @ModelAttribute("activityRecordsPageRequestDto")
             ActivityRecordsPageRequestDto requestPageDto,
             BindingResult result,  Model model) {

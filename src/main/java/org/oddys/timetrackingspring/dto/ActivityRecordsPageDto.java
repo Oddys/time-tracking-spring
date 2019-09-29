@@ -14,6 +14,16 @@ public class ActivityRecordsPageDto {
     private int rowsPerPage;
 
     public ActivityRecordsPageDto(List<ActivityRecordDto> activityRecords, int numPages,
+            Long userActivityId, Boolean userActivityAssigned, int currentPage, int rowsPerPage) {
+        this.activityRecords = activityRecords;
+        this.numPages = numPages;
+        this.userActivityId = userActivityId;
+        this.userActivityAssigned = userActivityAssigned;
+        this.currentPage = currentPage;
+        this.rowsPerPage = rowsPerPage;
+    }
+
+    public ActivityRecordsPageDto(List<ActivityRecordDto> activityRecords, int numPages,
             ActivityRecordsPageRequestDto requestDto) {
         this.activityRecords = activityRecords;
         this.numPages = numPages;

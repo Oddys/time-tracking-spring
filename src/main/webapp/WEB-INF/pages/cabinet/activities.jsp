@@ -62,7 +62,9 @@
                         <li>${i+1}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${activitiesPage.rowsPerPage}&currentPage=${i}">${i+1}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controller?command=show_activities&rowsPerPage=${activitiesPage.rowsPerPage}&currentPage=${i}">
+                                ${i+1}</a>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
