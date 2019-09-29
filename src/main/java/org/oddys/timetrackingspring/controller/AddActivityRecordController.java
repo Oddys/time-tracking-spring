@@ -17,7 +17,8 @@ import java.time.LocalDate;
 @SessionAttributes({"messageKey", "activityRecordsPageDto"})
 @AllArgsConstructor
 public class AddActivityRecordController {
-    private  final ActivityRecordService service;
+    private final int STARTING_PAGE = 0;
+    private final ActivityRecordService service;
 
     @PostMapping("/cabinet/add-activity-record")
     public String add(@RequestParam Long userActivityId,
@@ -29,6 +30,10 @@ public class AddActivityRecordController {
                 ? "activity.record.add.success"
                 : "activity.record.add.fail";
         model.addAttribute("messageKey", messageKey);
-        return "redirect:/cabinet/activity-records";
+        return String.format("redirect:/cabinet/show-activity-records?userActivityAssigned=%1b&userActivityId=%2d&rowsPerPage=%3d&currentPage=%4d",
+                dto.getUserActivityAssigned(),
+                dto.getUserActivityId(),
+                dto.getRowsPerPage(),
+                STARTING_PAGE);
     }
 }
