@@ -54,7 +54,7 @@
                     </c:choose>
                 </td>
                 <td>
-                    <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto" method="get">
+                    <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto">
                         <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>
                         <form:input type="hidden" path="currentPage" value="0"/>

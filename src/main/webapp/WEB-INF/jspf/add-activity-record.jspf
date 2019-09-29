@@ -1,4 +1,6 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%--@elvariable id="messageKey" type="java.lang.String"--%>
+<%--@elvariable id="activityRecordsPageDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageDto"--%>
 <html>
 <head>
 </head>
@@ -6,18 +8,10 @@
     <h2><fmt:message key="activity.record.add"/> </h2>
     <c:if test="${not empty messageKey}">
         <fmt:message key="${messageKey}"/>
+        <c:remove var="messageKey" scope="session"/>
     </c:if>
-<%--    <c:choose>--%>
-<%--        <c:when test="${not empty successMessage}">--%>
-<%--            ${successMessage}--%>
-<%--        </c:when>--%>
-<%--        <c:otherwise>--%>
-<%--            ${errorMessage}--%>
-<%--        </c:otherwise>--%>
-<%--    </c:choose>--%>
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="add_activity_record"/>
-<%--        <input type="hidden" name="sentFromPage" value="${pageContext.request.servletPath}"/>--%>
+    <form action="add-activity-record" method="post">
+        <input type="hidden" name="userActivityId" value="${activityRecordsPageDto.userActivityId}"/>
         <label for="date"><fmt:message key="label.date"/></label>
         <input type="date" name="date" id="date" min="2019-01-01" onchange="checkDate(this)" required/>
         <label for="duration"><fmt:message key="label.duration"/></label>
