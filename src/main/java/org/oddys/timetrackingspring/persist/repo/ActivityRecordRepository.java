@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 
 public interface ActivityRecordRepository extends JpaRepository<ActivityRecord, Long> {
-    Page<ActivityRecord> findAll(Pageable pageable);
+    Page<ActivityRecord> findAllByUserActivityUserActivityId(Long id, Pageable pageable);
 
     boolean existsByActivityDateAndUserActivityUserActivityId(LocalDate date, Long userActivityId);
 

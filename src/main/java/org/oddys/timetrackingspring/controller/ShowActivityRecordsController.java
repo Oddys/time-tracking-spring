@@ -32,7 +32,7 @@ public class ShowActivityRecordsController {
             @RequestParam boolean userActivityAssigned,
             @RequestParam int currentPage,
             @RequestParam int rowsPerPage, Model model) {
-        Page<ActivityRecordDto> page = service.findAll(currentPage, rowsPerPage);
+        Page<ActivityRecordDto> page = service.findAll(userActivityId, currentPage, rowsPerPage);
         List<ActivityRecordDto> activityRecords = IteratorUtils.toList(page.iterator());
         ActivityRecordsPageDto dto = new ActivityRecordsPageDto(activityRecords,
                 page.getTotalPages(), userActivityId, userActivityAssigned,
@@ -45,7 +45,8 @@ public class ShowActivityRecordsController {
     public String show(@Validated @ModelAttribute("activityRecordsPageRequestDto")
             ActivityRecordsPageRequestDto requestPageDto,
             BindingResult result,  Model model) {
-        Page<ActivityRecordDto> page = service.findAll(requestPageDto.getCurrentPage(),
+        Page<ActivityRecordDto> page = service.findAll(requestPageDto.getUserActivityId(),
+                requestPageDto.getCurrentPage(),
                 requestPageDto.getRowsPerPage());
         List<ActivityRecordDto> activityRecords = IteratorUtils.toList(page.iterator());
         model.addAttribute("activityRecordsPageDto",

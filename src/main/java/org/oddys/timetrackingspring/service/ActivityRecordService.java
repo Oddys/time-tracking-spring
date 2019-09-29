@@ -22,10 +22,10 @@ public class ActivityRecordService {
     private final ActivityRecords activityRecords;
 
     @Transactional(readOnly = true)
-    public Page<ActivityRecordDto> findAll(int currentPage, int rowsPerPage) {
+    public Page<ActivityRecordDto> findAll(Long userActivityId, int currentPage, int rowsPerPage) {
         Pageable pageable = PageRequest.of(currentPage, rowsPerPage,
                 Sort.by("activityDate").descending());
-        Page<ActivityRecord> page = activityRecords.findAll(pageable);
+        Page<ActivityRecord> page = activityRecords.findAll(userActivityId, pageable);
         return page.map(ar -> modelMapper.map(ar, ActivityRecordDto.class));
     }
 

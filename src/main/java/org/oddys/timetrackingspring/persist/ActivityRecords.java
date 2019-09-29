@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 
 public interface ActivityRecords {
-    Page<ActivityRecord> findAll(Pageable pageable);
+    Page<ActivityRecord> findAll(Long userActivityId, Pageable pageable);
 
     boolean exists(LocalDate date, Long userActivityId);
 

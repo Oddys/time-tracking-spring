@@ -11,6 +11,6 @@ public class UserActivitiesController {
     public String showForm(Model model) {
         model.addAttribute("activityRecordsPageRequestDto",
                 new ActivityRecordsPageRequestDto());
-        return "cabinet/user-activities";
+        return "/cabinet/user-activities";
     }
 }

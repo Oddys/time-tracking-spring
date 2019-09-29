@@ -1,11 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
-<%--@elvariable id="userActivities" type="java.util.List"--%>
-<%--@elvariable id="errorMessageKey" type="java.lang.String"--%>
-<%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
-<%--@elvariable id="activityRecordsPageRequestDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
+<%--@elvariable id="userActivities" type="java.util.List"--%>
+<%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <html>
 <head>
     <title>
@@ -54,6 +52,7 @@
                     </c:choose>
                 </td>
                 <td>
+                        <%--@elvariable id="activityRecordsPageRequestDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto"--%>
                     <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto">
                         <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>

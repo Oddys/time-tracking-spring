@@ -16,8 +16,8 @@ public class ActivityRecordsImpl implements ActivityRecords {
     private final ActivityRecordRepository repository;
 
     @Override
-    public Page<ActivityRecord> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<ActivityRecord> findAll(Long userActivityId, Pageable pageable) {
+        return repository.findAllByUserActivityUserActivityId(userActivityId, pageable);
     }
 
     @Override
