@@ -1,14 +1,9 @@
 package org.oddys.timetrackingspring.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.filter.AuthFilter;
-import org.oddys.timetrackingspring.util.ActivityRecordMap;
 import org.oddys.timetrackingspring.util.ConfigManager;
-import org.oddys.timetrackingspring.util.EntityMapper;
 import org.oddys.timetrackingspring.util.ParameterValidator;
-import org.oddys.timetrackingspring.util.PasswordManager;
-import org.oddys.timetrackingspring.util.UserActivityMap;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,26 +28,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper =  new ModelMapper();
-        modelMapper.addMappings(new UserActivityMap());
-        modelMapper.addMappings(new ActivityRecordMap());
-        return modelMapper;
-    }
-
-    @Bean
-    public PasswordManager passwordManager() {
-        return new PasswordManager();
-    }
-
-    @Bean
     public ParameterValidator parameterValidator() {
         return new ParameterValidator();
-    }
-
-    @Bean
-    public EntityMapper entityMapper() {
-        return new EntityMapper(passwordManager());
     }
 
     @Bean
