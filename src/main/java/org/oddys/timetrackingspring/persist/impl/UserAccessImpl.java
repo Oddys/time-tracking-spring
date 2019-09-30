@@ -1,4 +1,4 @@
-package org.oddys.timetrackingspring.persist.dataaccess;
+package org.oddys.timetrackingspring.persist.impl;
 
 import lombok.AllArgsConstructor;
 import org.oddys.timetrackingspring.persist.UserAccess;

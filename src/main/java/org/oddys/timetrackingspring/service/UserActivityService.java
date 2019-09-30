@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.dto.UserActivityDto;
-import org.oddys.timetrackingspring.persist.UserActivityAccess;
+import org.oddys.timetrackingspring.persist.UserActivities;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class UserActivityService {
-    private final UserActivityAccess dao;
+    private final UserActivities dao;
     private final ModelMapper modelMapper;
 
     public List<UserActivityDto> findUserActivityByUserId(Long userId) {
