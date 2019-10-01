@@ -3,13 +3,10 @@
 <%--@elvariable id="pageDto" type="org.oddys.timetrackingspring.dto.PageDto"--%>
 <html>
 <head>
-    <title>User Activity Requests</title>
+    <title><fmt:message key="title.user.activity.requests"/></title>
 </head>
 <body>
-    URL: ${pageContext.request.requestURL}<br/>
-    URI: ${pageContext.request.requestURI}<br/>
-    PATH: ${pageContext.request.servletPath}<br/>
-    QUERY: ${pageContext.request.queryString}<br/>
+<h2><fmt:message key="title.user.activity.requests"/> </h2>
 <c:if test="${not empty messageKey}">
     <fmt:message key="${messageKey}"/>
     <c:remove var="messageKey" scope="session"/>
