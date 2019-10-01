@@ -31,4 +31,9 @@ public class UserActivitiesImpl implements UserActivities {
         repository.updateAssignedAndStatusChangeRequested(userActivityId,
                 assigned);
     }
+
+    @Override
+    public UserActivity addUserActivity(UserActivity userActivity) {
+        return repository.save(userActivity);
+    }
 }

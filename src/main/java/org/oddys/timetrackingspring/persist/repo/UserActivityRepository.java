@@ -15,6 +15,9 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Long
 
     Page<UserActivity> findAllByStatusChangeRequestedIsTrue(Pageable pageable);
 
+    @SuppressWarnings("unchecked")
+    UserActivity save(UserActivity userActivity);
+
     @Modifying
     @Query(value = "UPDATE user_activities SET assigned = :assigned, status_change_requested = false WHERE user_activity_id = :user_activity_id",
         nativeQuery = true)

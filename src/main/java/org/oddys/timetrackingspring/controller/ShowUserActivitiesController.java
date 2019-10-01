@@ -3,7 +3,7 @@ package org.oddys.timetrackingspring.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.oddys.timetrackingspring.dto.UserDto;
-import org.oddys.timetrackingspring.service.UserActivityService;
+import org.oddys.timetrackingspring.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @SessionAttributes({"userActivities", "targetUser"})
 public class ShowUserActivitiesController {
-    private final UserActivityService service;
+    private final UserService service;
 
     @GetMapping("/cabinet")
     public ModelAndView showForm() {

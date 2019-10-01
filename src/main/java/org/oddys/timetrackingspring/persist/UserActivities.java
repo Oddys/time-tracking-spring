@@ -13,4 +13,6 @@ public interface UserActivities {
 
     void updateAssignedAndStatusChangeRequested(Long userActivityId,
             Boolean assigned);
+
+    UserActivity addUserActivity(UserActivity userActivity);
 }

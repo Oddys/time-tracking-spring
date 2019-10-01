@@ -8,6 +8,7 @@ import org.oddys.timetrackingspring.dto.PageDto;
 import org.oddys.timetrackingspring.dto.UserActivityDto;
 import org.oddys.timetrackingspring.service.AdminService;
 import org.oddys.timetrackingspring.service.CommonService;
+import org.oddys.timetrackingspring.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
@@ -30,6 +32,7 @@ public class CabinetController {
     private final int FIRST_PAGE = 0;
     private final int ROWS_PER_PAGE = 5;
     private final AdminService adminService;
+    private final UserService userService;
     private final CommonService commonService;
 
     @GetMapping("/user-activity-requests")
@@ -67,6 +70,7 @@ public class CabinetController {
                 page.getTotalPages()
         );
         model.addAttribute("pageDto", pageDto);
+        model.addAttribute("userActivityDto", new UserActivityDto());
         return "cabinet/activities";
     }
 
@@ -77,6 +81,16 @@ public class CabinetController {
                 : "activity.add.fail";
         model.addAttribute("messageKey", messageKey);
         model.addAttribute("activityName", activityName);
+        return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
+                FIRST_PAGE, ROWS_PER_PAGE);
+    }
+
+    @PostMapping("/request-user-activity")
+    public String requestUserActivity(@Valid UserActivityDto dto, Model model) {
+        String messageKey = userService.requestUserActivity(dto)
+                ? "user.activity.request.success"
+                : "user.activity.request.fail";
+        model.addAttribute("messageKey", messageKey);
         return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
                 FIRST_PAGE, ROWS_PER_PAGE);
     }

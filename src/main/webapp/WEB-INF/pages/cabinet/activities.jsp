@@ -1,6 +1,7 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="activityName" type="String"--%>
 <%--@elvariable id="pageDto" type="org.oddys.timetrackingspring.dto.PageDto"--%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
@@ -36,13 +37,16 @@
                 <td>${activity.name}</td>
                 <c:if test="${user.roleName eq 'USER'}">
                     <td>
-                        <form action="controller" method="post">
-                            <input type="hidden" name="command" value="assign_activity"/>
-                            <input type="hidden" name="activityId" value="${activity.id}"/>
-                            <input type="hidden" name="userId" value="${user.userId}"/>
-                            <input type="hidden" name="activityName" value="${activity.name}"/>
+                        <form:form action="${pageContext.request.contextPath}/cabinet/request-user-activity" modelAttribute="userActivityDto" method="post">
+                            <form:input type="hidden" path="assigned" value="false"/>
+                            <form:input type="hidden" path="statusChangeRequested" value="true"/>
+                            <form:input type="hidden" path="userId" value="${user.userId}"/>
+                            <form:input type="hidden" path="userFirstName" value="${user.firstName}"/>
+                            <form:input type="hidden" path="userLastName" value="${user.lastName}"/>
+                            <form:input type="hidden" path="activityId" value="${activity.id}"/>
+                            <form:input type="hidden" path="activityName" value="${activity.name}"/>
                             <input type="submit" value="<fmt:message key="table.column.add.to.my.activities"/>"/>
-                        </form>
+                        </form:form>
                     </td>
                 </c:if>
             </tr>
