@@ -10,4 +10,7 @@ public interface UserActivities {
     List<UserActivity> findAllByUserId(Long userId);
 
     Page<UserActivity> findRequestsForStatusChange(Pageable pageable);
+
+    void updateAssignedAndStatusChangeRequested(Long userActivityId,
+            Boolean assigned);
 }

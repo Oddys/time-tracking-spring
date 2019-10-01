@@ -24,4 +24,11 @@ public class UserActivitiesImpl implements UserActivities {
     public Page<UserActivity> findRequestsForStatusChange(Pageable pageable) {
         return repository.findAllByStatusChangeRequestedIsTrue(pageable);
     }
+
+    @Override
+    public void updateAssignedAndStatusChangeRequested(Long userActivityId,
+            Boolean assigned) {
+        repository.updateAssignedAndStatusChangeRequested(userActivityId,
+                assigned);
+    }
 }

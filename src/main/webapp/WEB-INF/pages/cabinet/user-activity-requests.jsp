@@ -7,7 +7,8 @@
 </head>
 <body>
 <c:if test="${not empty messageKey}">
-    ${messageKey}
+    <fmt:message key="${messageKey}"/>
+    <c:remove var="messageKey" scope="session"/>
 </c:if>
 <table class="table table-hover table-striped table-bordered">
     <tr>
@@ -24,7 +25,7 @@
             <td>${userActivity.userLastName}</td>
             <td>${userActivity.activityName}</td>
             <td>
-                <form action="${pageContext.request.contextPath}/cabinet/change-activity-status" method="post">
+                <form action="${pageContext.request.contextPath}/cabinet/change-user-activity-status" method="post">
                     <input type="hidden" name="userActivityId" value="${userActivity.userActivityId}"/>
                     <input type="hidden" name="currentAssigned" value="${userActivity.assigned}"/>
                     <c:choose>

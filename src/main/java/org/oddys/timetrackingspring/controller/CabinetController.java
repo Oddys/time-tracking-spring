@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -20,9 +21,11 @@ import javax.validation.constraints.Min;
 @Controller
 @RequestMapping("/cabinet")
 @AllArgsConstructor
-@SessionAttributes("pageDto")
 @Validated
+@SessionAttributes("messageKey")
 public class CabinetController {
+    private final int FIRST_PAGE = 0;
+    private final int ROWS_PER_PAGE = 5;
     private final AdminService adminService;
 
     @GetMapping("/show-user-activity-requests")
@@ -37,5 +40,14 @@ public class CabinetController {
                 page.getTotalPages());
         model.addAttribute("pageDto", pageDto);
         return "/cabinet/user-activity-requests";
+    }
+
+    @PostMapping("/change-user-activity-status")
+    public String changeUserActivityStatus(@RequestParam @Min(value=1) Long userActivityId,
+            @RequestParam Boolean currentAssigned, Model model) {
+        adminService.changeUserActivityStatus(userActivityId, currentAssigned);
+        model.addAttribute("messageKey", "user.activity.status.changed");
+        return String.format("redirect:/cabinet/show-user-activity-requests?currentPage=%d&rowsPerPage=%d",
+            FIRST_PAGE, ROWS_PER_PAGE);
     }
 }
