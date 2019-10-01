@@ -20,8 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/error").setViewName("error");
         registry.addViewController("/cabinet/activity-records")
                 .setViewName("/cabinet/activity-records");
-        registry.addViewController("/cabinet/activities")
-                .setViewName("cabinet/activities");
         registry.addViewController("/cabinet/user-data")
                 .setViewName("cabinet/user-data");
         registry.addViewController("/cabinet/user-activities")

@@ -3,9 +3,11 @@ package org.oddys.timetrackingspring.controller;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IteratorUtils;
 import org.hibernate.validator.constraints.Range;
+import org.oddys.timetrackingspring.dto.ActivityDto;
 import org.oddys.timetrackingspring.dto.PageDto;
 import org.oddys.timetrackingspring.dto.UserActivityDto;
 import org.oddys.timetrackingspring.service.AdminService;
+import org.oddys.timetrackingspring.service.CommonService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ public class CabinetController {
     private final int FIRST_PAGE = 0;
     private final int ROWS_PER_PAGE = 5;
     private final AdminService adminService;
+    private final CommonService commonService;
 
     @GetMapping("/user-activity-requests")
     public String showActivityRequests(@RequestParam @Min(value=0) int currentPage,
@@ -37,7 +40,8 @@ public class CabinetController {
                 IteratorUtils.toList(page.iterator()),
                 currentPage,
                 rowsPerPage,
-                page.getTotalPages());
+                page.getTotalPages()
+        );
         model.addAttribute("pageDto", pageDto);
         return "cabinet/user-activity-requests";
     }
@@ -49,5 +53,19 @@ public class CabinetController {
         model.addAttribute("messageKey", "user.activity.status.changed");
         return String.format("redirect:/cabinet/user-activity-requests?currentPage=%d&rowsPerPage=%d",
             FIRST_PAGE, ROWS_PER_PAGE);
+    }
+
+    @GetMapping("/activities")
+    public String showActivities(@RequestParam(defaultValue = "0") int currentPage,
+            @RequestParam(defaultValue = "5") int rowsPerPage, Model model) {
+        Page<ActivityDto> page = commonService.findAll(currentPage, rowsPerPage);
+        PageDto<ActivityDto> pageDto = new PageDto<>(
+                IteratorUtils.toList(page.iterator()),
+                currentPage,
+                rowsPerPage,
+                page.getTotalPages()
+        );
+        model.addAttribute("pageDto", pageDto);
+        return "cabinet/activities";
     }
 }

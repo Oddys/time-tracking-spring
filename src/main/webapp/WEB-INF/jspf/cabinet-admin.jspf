@@ -7,7 +7,7 @@
         <input type="submit" value="<fmt:message key="button.add"/>"/>
     </form>
     <h3><fmt:message key="activity.all"/></h3>
-    <form action="show-activities">
+    <form action="cabinet/activities">
         <input type="hidden" name="currentPage" value="0"/>
         <input type="hidden" name="rowsPerPage" value="5"/>
         <input type="submit" value="<fmt:message key="button.show"/>"/>

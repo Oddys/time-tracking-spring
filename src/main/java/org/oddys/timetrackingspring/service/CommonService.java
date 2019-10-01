@@ -1,7 +1,6 @@
 package org.oddys.timetrackingspring.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.dto.ActivityDto;
 import org.oddys.timetrackingspring.persist.ActivityAccess;
@@ -12,14 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @AllArgsConstructor
-public class ActivityService {
+public class CommonService {
     private final ActivityAccess activityAccess;
     private final ModelMapper modelMapper;
 
-    public boolean check(String activityName) {
+    public boolean activityExists(String activityName) {
         Activity activity = activityAccess.findByName(activityName);
         return activity != null;
     }

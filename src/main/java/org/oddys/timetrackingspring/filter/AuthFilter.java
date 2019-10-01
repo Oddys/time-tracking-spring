@@ -16,18 +16,17 @@ import java.util.Set;
 
 @Slf4j
 public class AuthFilter implements Filter {
-    private static final Set adminPages = Set.of("/cabinet/user-data");
+    private static final Set adminPages = Set.of(
+            "/cabinet/user-data",
+            "/cabinet/user-activity-requests",
+            "/cabinet/change-user-activity-status");
     private static final Set userPages = Set.of();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) {}
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
