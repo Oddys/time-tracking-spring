@@ -6,6 +6,10 @@
     <title>User Activity Requests</title>
 </head>
 <body>
+    URL: ${pageContext.request.requestURL}<br/>
+    URI: ${pageContext.request.requestURI}<br/>
+    PATH: ${pageContext.request.servletPath}<br/>
+    QUERY: ${pageContext.request.queryString}<br/>
 <c:if test="${not empty messageKey}">
     <fmt:message key="${messageKey}"/>
     <c:remove var="messageKey" scope="session"/>

@@ -28,7 +28,7 @@ public class CabinetController {
     private final int ROWS_PER_PAGE = 5;
     private final AdminService adminService;
 
-    @GetMapping("/show-user-activity-requests")
+    @GetMapping("/user-activity-requests")
     public String showActivityRequests(@RequestParam @Min(value=0) int currentPage,
             @RequestParam @Range(min=5, max=50) int rowsPerPage, Model model) {
         Page<UserActivityDto> page = adminService.showRequestsForStatusChange(
@@ -39,7 +39,7 @@ public class CabinetController {
                 rowsPerPage,
                 page.getTotalPages());
         model.addAttribute("pageDto", pageDto);
-        return "/cabinet/user-activity-requests";
+        return "cabinet/user-activity-requests";
     }
 
     @PostMapping("/change-user-activity-status")
@@ -47,7 +47,7 @@ public class CabinetController {
             @RequestParam Boolean currentAssigned, Model model) {
         adminService.changeUserActivityStatus(userActivityId, currentAssigned);
         model.addAttribute("messageKey", "user.activity.status.changed");
-        return String.format("redirect:/cabinet/show-user-activity-requests?currentPage=%d&rowsPerPage=%d",
+        return String.format("redirect:/cabinet/user-activity-requests?currentPage=%d&rowsPerPage=%d",
             FIRST_PAGE, ROWS_PER_PAGE);
     }
 }
