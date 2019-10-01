@@ -12,12 +12,13 @@
     <c:if test="${not empty messageKey}">
         <fmt:message key="${messageKey}">
             <fmt:param value="${activityName}"/>
+            <c:remove var="messageKey" scope="session"/>
+            <c:remove var="activityName" scope="session"/>
         </fmt:message>
     </c:if>
     <c:if test="${user.roleName eq 'ADMIN'}">
         <h3><fmt:message key="title.activity.add"/> </h3>
-        <form action="controller" method="post">
-            <input type="hidden" name="command" value="add_activity">
+        <form action="${pageContext.request.contextPath}/cabinet/add-activity" method="post">
             <label for="activityName"></label>
             <input type="text" name="activityName" id="activityName" placeholder="<fmt:message key="activity.enter"/>" required/>
             <input type="submit" value="<fmt:message key="button.send"/>"/>

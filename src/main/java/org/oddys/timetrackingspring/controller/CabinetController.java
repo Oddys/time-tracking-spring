@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Controller
 @RequestMapping("/cabinet")
 @AllArgsConstructor
 @Validated
-@SessionAttributes("messageKey")
+@SessionAttributes({"messageKey", "activityName"})
 public class CabinetController {
     private final int FIRST_PAGE = 0;
     private final int ROWS_PER_PAGE = 5;
@@ -67,5 +68,16 @@ public class CabinetController {
         );
         model.addAttribute("pageDto", pageDto);
         return "cabinet/activities";
+    }
+
+    @PostMapping("/add-activity")
+    public String addActivity(@RequestParam @NotBlank String activityName, Model model) {
+        String messageKey = adminService.addActivity(activityName)
+                ? "activity.add.success"
+                : "activity.add.fail";
+        model.addAttribute("messageKey", messageKey);
+        model.addAttribute("activityName", activityName);
+        return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
+                FIRST_PAGE, ROWS_PER_PAGE);
     }
 }

@@ -17,10 +17,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Activity {
-  @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  private Long activityId;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long activityId;
 
-  @NotNull
-  private String activityName;
+    @NotNull
+    private String activityName;
+
+    public Activity(String name) {
+        activityName = name;
+    }
 }

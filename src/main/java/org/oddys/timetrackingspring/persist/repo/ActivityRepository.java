@@ -9,4 +9,9 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Activity findActivityByActivityNameEquals(String name);
 
     Page<Activity> findAll(Pageable pageable);
+
+    boolean existsByActivityNameEquals(String name);
+
+    @SuppressWarnings("unchecked")
+    Activity save(Activity activity);
 }

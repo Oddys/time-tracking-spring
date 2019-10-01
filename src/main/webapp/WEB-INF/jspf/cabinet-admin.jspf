@@ -18,7 +18,7 @@
         <input type="hidden" name="rowsPerPage" value="5"/>
         <input type="submit" value="<fmt:message key="button.show"/>"/>
     </form>
-    <h3><fmt:message key="user.find"/></h3>
+<%--    <h3><fmt:message key="user.find"/></h3>--%>
 <%--    <form action="controller">--%>
 <%--        <input type="hidden" name="command" value="find_user"/>--%>
 <%--        <fmt:message key="user.lastname"/>:--%>
