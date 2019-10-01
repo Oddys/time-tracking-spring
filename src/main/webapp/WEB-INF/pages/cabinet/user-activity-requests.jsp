@@ -24,13 +24,12 @@
             <td>${userActivity.userLastName}</td>
             <td>${userActivity.activityName}</td>
             <td>
-                <form action="controller" method="post">
-                    <input type="hidden" name="command" value="change_activity_status"/>
+                <form action="${pageContext.request.contextPath}/cabinet/change-activity-status" method="post">
                     <input type="hidden" name="userActivityId" value="${userActivity.userActivityId}"/>
                     <input type="hidden" name="currentAssigned" value="${userActivity.assigned}"/>
                     <c:choose>
                         <c:when test="${userActivity.assigned}">
-                            <input type="submit" value="Stop activity"/>
+                            <input type="submit" value="<fmt:message key="button.activity.stop"/>"/>
                         </c:when>
                         <c:otherwise>
                             <input type="submit" value="<fmt:message key="button.user.activity.assign"/> "/>
@@ -49,28 +48,28 @@
             <c:if test="${pageDto.currentPage != 0}">
                 <li class="page-item">
                         <span class="border px-2 py-1">
-                            <a href="${pageContext.request.contextPath}/cabinet/user-activity-requests?rowsPerPage=${rowsPerPage}&currentPage=${currentPage-1}">
+                            <a href="${pageContext.request.contextPath}/cabinet/user-activity-requests?rowsPerPage=${pageDto.rowsPerPage}&currentPage=${pageDto.currentPage-1}">
                                 <fmt:message key="nav.previous"/>
                             </a>
                         </span>
                 </li>
             </c:if>
-            <c:forEach begin="1" end="${numPages}" var="i">
+            <c:forEach begin="0" end="${pageDto.numPages-1}" var="i">
                     <span class="border px-2 py-1">
                         <c:choose>
-                            <c:when test="${currentPage eq i}">
-                                <li class="page-item">${i}</li>
+                            <c:when test="${pageDto.currentPage eq i}">
+                                <li class="page-item">${i+1}</li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item"><a href="${pageContext.request.contextPath}/controller?command=show_activity_requests&rowsPerPage=${rowsPerPage}&currentPage=${i}">${i}</a></li>
+                                <li class="page-item"><a href="${pageContext.request.contextPath}/cabinet/user-activity-requests?rowsPerPage=${pageDto.rowsPerPage}&currentPage=${i}">${i}</a></li>
                             </c:otherwise>
                         </c:choose>
                     </span>
             </c:forEach>
-            <c:if test="${currentPage lt numPages}">
+            <c:if test="${pageDto.currentPage lt pageDto.numPages-1}">
                 <li class="page-item">
                         <span class="border px-2 py-1">
-                            <a href="${pageContext.request.contextPath}/controller?command=show_activity_requests&rowsPerPage=${rowsPerPage}&currentPage=${currentPage+1}">
+                            <a href="${pageContext.request.contextPath}/cabinet/user-activity-requests?rowsPerPage=${pageDto.rowsPerPage}&currentPage=${pageDto.currentPage+1}">
                                 <fmt:message key="nav.next"/>
                             </a>
                         </span>
