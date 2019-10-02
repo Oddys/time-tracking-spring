@@ -1,5 +1,6 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="activityRecordsPageDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageDto"--%>
+<%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
@@ -71,7 +72,7 @@
             </c:if>
         </ul>
     </c:if>
-    <form action="user-activities">
+    <form action="user-activities?userId=${userId}&firstName=${firstName}&lastName=${lastName}">
         <input type="submit" value="<fmt:message key="button.back.to.activities"/>"/>
     </form>
 </body>

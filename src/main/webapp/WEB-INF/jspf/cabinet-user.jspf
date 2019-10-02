@@ -6,17 +6,17 @@
 </head>
     <body>
         <h3><fmt:message key="activity.all"/></h3>
-        <form action="cabinet/activities">
+        <form action="${pageContext.request.contextPath}/cabinet/activities">
             <input type="hidden" name="currentPage" value="0"/>
             <input type="hidden" name="rowsPerPage" value="5"/>
             <input type="submit" value="<fmt:message key="button.show"/>"/>
         </form>
         <h3><fmt:message key="activity.my"/></h3>
-        <form:form action="cabinet/show-user-activities" modelAttribute="targetUser" method="get">
-            <form:input type="hidden" path="userId" value="${user.userId}"/>
-            <form:input type="hidden" path="firstName" value="${user.firstName}"/>
-            <form:input type="hidden" path="lastName" value="${user.lastName}"/>
+        <form action="${pageContext.request.contextPath}/cabinet/user-activities" method="get">
+            <input type="hidden" name="userId" value="${user.userId}"/>
+            <input type="hidden" name="firstName" value="${user.firstName}"/>
+            <input type="hidden" name="lastName" value="${user.lastName}"/>
             <input type="submit" value="<fmt:message key="button.show"/>"/>
-        </form:form>
+        </form>
     </body>
 </html>

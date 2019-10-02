@@ -64,10 +64,9 @@
                 <c:if test="${user.roleName eq 'USER'}">
                     <td>
                         <c:if test="${currentUserActivity.assigned and not currentUserActivity.statusChangeRequested}">
-                            <form action="controller" method="post">
-                                <input type="hidden" name="command" value="stop_activity"/>
+                            <form action="${pageContext.request.contextPath}/cabinet/stop-activity" method="post">
                                 <input type="hidden" name="userActivityId" value="${currentUserActivity.userActivityId}"/>
-                                <input type="submit" value="Stop activity"/>
+                                <input type="submit" value="<fmt:message key="button.activity.stop"/>"/>
                             </form>
                         </c:if>
                     </td>
