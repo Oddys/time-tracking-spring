@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IteratorUtils;
 import org.hibernate.validator.constraints.Range;
 import org.oddys.timetrackingspring.dto.ActivityDto;
+import org.oddys.timetrackingspring.dto.ActivityRecordDto;
+import org.oddys.timetrackingspring.dto.ActivityRecordsPage;
 import org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto;
 import org.oddys.timetrackingspring.dto.PageDto;
 import org.oddys.timetrackingspring.dto.UserActivityDto;
@@ -12,12 +14,11 @@ import org.oddys.timetrackingspring.service.AdminService;
 import org.oddys.timetrackingspring.service.CommonService;
 import org.oddys.timetrackingspring.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,13 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/cabinet")
 @AllArgsConstructor
 @Validated
-@SessionAttributes({"messageKey", "activityName"})
+@SessionAttributes({"user", "messageKey", "activityName"})
 public class CabinetController {
     private final int FIRST_PAGE = 0;
     private final int ROWS_PER_PAGE = 5;
@@ -124,5 +126,44 @@ public class CabinetController {
     @PostMapping("/stop-activity")
     public String stopUserActivity(@RequestParam Long userActivityId) {
         return "/";  // FIXME
+    }
+
+    @GetMapping("/activity-records")
+    public String showActivityRecords(@RequestParam Long userActivityId,
+            @RequestParam boolean userActivityAssigned,
+            @RequestParam int currentPage,
+            @RequestParam int rowsPerPage,
+            Model model) {
+        Page<ActivityRecordDto> page = commonService.findAll(userActivityId, currentPage, rowsPerPage);
+        List<ActivityRecordDto> activityRecords = IteratorUtils.toList(page.iterator());
+        ActivityRecordsPage dto = new ActivityRecordsPage(
+                activityRecords,
+                currentPage,
+                rowsPerPage,
+                page.getTotalPages(),
+                userActivityId,
+                userActivityAssigned
+        );
+        model.addAttribute("activityRecordsPage", dto);
+        return "/cabinet/activity-records";
+    }
+
+    @PostMapping("/add-activity-record")
+    public String add(@RequestParam Long userActivityId,
+            @RequestParam Boolean userActivityAssigned,
+            @RequestParam Long rowsPerPage,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam Long duration,
+            Model model) {
+        String messageKey = commonService.addActivityRecord(date, duration, userActivityId)
+                ? "activity.record.add.success"
+                : "activity.record.add.fail";
+        model.addAttribute("messageKey", messageKey);
+        return String.format("redirect:/cabinet/activity-records?userActivityAssigned=%1b&userActivityId=%2d&rowsPerPage=%3d&currentPage=%4d",
+                userActivityAssigned,
+                userActivityId,
+                rowsPerPage,
+                FIRST_PAGE
+        );
     }
 }

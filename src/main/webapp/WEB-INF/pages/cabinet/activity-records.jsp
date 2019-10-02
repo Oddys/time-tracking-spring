@@ -1,5 +1,5 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
-<%--@elvariable id="activityRecordsPageDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageDto"--%>
+<%--@elvariable id="activityRecordsPage" type="org.oddys.timetrackingspring.dto.ActivityRecordsPage"--%>
 <%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
@@ -9,15 +9,15 @@
 </head>
 <body>
     <h2>
-        <c:if test="${not empty activityRecordsPageDto.activityRecords}">
+        <c:if test="${not empty activityRecordsPage.elements}">
             <fmt:message key='title.user.activity.records'>
-                <fmt:param value='${activityRecordsPageDto.activityRecords[0].userFirstName}'/>
-                <fmt:param value='${activityRecordsPageDto.activityRecords[0].userLastName}'/>
-                <fmt:param value='${activityRecordsPageDto.activityRecords[0].activityName}'/>
+                <fmt:param value='${activityRecordsPage.elements[0].userFirstName}'/>
+                <fmt:param value='${activityRecordsPage.elements[0].userLastName}'/>
+                <fmt:param value='${activityRecordsPage.elements[0].activityName}'/>
             </fmt:message>
         </c:if>
     </h2>
-    <c:if test="${user.roleName eq 'USER' and activityRecordsPageDto.userActivityAssigned}">
+    <c:if test="${user.roleName eq 'USER' and activityRecordsPage.assigned}">
         <%@ include file="/WEB-INF/jspf/add-activity-record.jspf"%>
     </c:if>
     <table>
@@ -30,7 +30,7 @@
 <%--                <th></th>--%>
 <%--            </c:if>--%>
         </tr>
-        <c:forEach items="${activityRecordsPageDto.activityRecords}" var="record">
+        <c:forEach items="${activityRecordsPage.elements}" var="record">
             <tr>
                 <td>${record.activityDate}</td>
                 <td>${record.duration}</td>
@@ -42,37 +42,40 @@
             </tr>
         </c:forEach>
     </table>
-    <c:if test="${not empty activityRecordsPageDto.activityRecords}">
+    <c:if test="${not empty activityRecordsPage.elements}">
         <ul>
-            <c:if test="${activityRecordsPageDto.currentPage != 0}">
+            <c:if test="${activityRecordsPage.currentPage != 0}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage-1}">
+                    <a href="${pageContext.request.contextPath}/cabinet/activity-records?userActivityAssigned=${activityRecordsPage.assigned}&userActivityId=${activityRecordsPage.userActivityId}&rowsPerPage=${activityRecordsPage.rowsPerPage}&currentPage=${activityRecordsPage.currentPage-1}">
                         <fmt:message key="nav.previous"/>
                     </a>
                 </li>
             </c:if>
-            <c:forEach begin="0" end="${activityRecordsPageDto.numPages-1}" var="i">
+            <c:forEach begin="0" end="${activityRecordsPage.numPages-1}" var="i">
                 <c:choose>
-                    <c:when test="${activityRecordsPageDto.currentPage eq i}">
+                    <c:when test="${activityRecordsPage.currentPage eq i}">
                         <li>${i+1}</li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${i}">
+                        <li><a href="${pageContext.request.contextPath}/cabinet/activity-records?userActivityAssigned=${activityRecordsPage.assigned}&userActivityId=${activityRecordsPage.userActivityId}&rowsPerPage=${activityRecordsPage.rowsPerPage}&currentPage=${i}">
                                 ${i+1}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <c:if test="${activityRecordsPageDto.currentPage lt activityRecordsPageDto.numPages-1}">
+            <c:if test="${activityRecordsPage.currentPage lt activityRecordsPage.numPages-1}">
                 <li>
-                    <a href="${pageContext.request.contextPath}/cabinet/show-activity-records?userActivityAssigned=${activityRecordsPageDto.userActivityAssigned}&userActivityId=${activityRecordsPageDto.userActivityId}&rowsPerPage=${activityRecordsPageDto.rowsPerPage}&currentPage=${activityRecordsPageDto.currentPage+1}">
+                    <a href="${pageContext.request.contextPath}/cabinet/activity-records?userActivityAssigned=${activityRecordsPage.assigned}&userActivityId=${activityRecordsPage.userActivityId}&rowsPerPage=${activityRecordsPage.rowsPerPage}&currentPage=${activityRecordsPage.currentPage+1}">
                         <fmt:message key="nav.next"/>
                     </a>
                 </li>
             </c:if>
         </ul>
     </c:if>
-    <form action="user-activities?userId=${userId}&firstName=${firstName}&lastName=${lastName}">
+    <form action="user-activities">
+        <input type="hidden" name="userId" value="${user.userId}"/>
+        <input type="hidden" name="firstName" value="${user.firstName}"/>
+        <input type="hidden" name="lastName" value="${user.lastName}"/>
         <input type="submit" value="<fmt:message key="button.back.to.activities"/>"/>
     </form>
 </body>

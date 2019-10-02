@@ -13,9 +13,9 @@ public class ActivityRecordsPageRequestDto {
     private int currentPage;
     private int rowsPerPage;
 
-    public ActivityRecordsPageRequestDto(ActivityRecordsPageDto dto) {
+    public ActivityRecordsPageRequestDto(ActivityRecordsPage dto) {
         userActivityId = dto.getUserActivityId();
-        userActivityAssigned = dto.getUserActivityAssigned();
+        userActivityAssigned = dto.getAssigned();
         currentPage = dto.getCurrentPage();
         rowsPerPage = dto.getRowsPerPage();
     }

@@ -8,16 +8,16 @@
 <head>
     <title>
         <fmt:message key="title.activities.user">
-            <fmt:param value="${targetUser.firstName}"/>
-            <fmt:param value="${targetUser.lastName}"/>
+            <fmt:param value="${firstName}"/>
+            <fmt:param value="${lastName}"/>
         </fmt:message>
     </title>
 </head>
 <body>
     <h2>
         <fmt:message key="title.activities.user">
-            <fmt:param value="${targetUser.firstName}"/>
-            <fmt:param value="${targetUser.lastName}"/>
+            <fmt:param value="${firstName}"/>
+            <fmt:param value="${lastName}"/>
         </fmt:message>
     </h2>
     <c:if test="${not empty messageKey}">
@@ -53,7 +53,7 @@
                 </td>
                 <td>
                         <%--@elvariable id="activityRecordsPageRequestDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto"--%>
-                    <form:form action="show-activity-records" modelAttribute="activityRecordsPageRequestDto">
+                    <form:form action="activity-records" modelAttribute="activityRecordsPageRequestDto" method="get">
                         <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>
                         <form:input type="hidden" path="currentPage" value="0"/>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%--@elvariable id="messageKey" type="java.lang.String"--%>
-<%--@elvariable id="activityRecordsPageDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageDto"--%>
+<%--@elvariable id="activityRecordsPage" type="org.oddys.timetrackingspring.dto.ActivityRecordsPage"--%>
 <html>
 <head>
 </head>
@@ -11,11 +11,13 @@
         <c:remove var="messageKey" scope="session"/>
     </c:if>
     <form action="add-activity-record" method="post">
-        <input type="hidden" name="userActivityId" value="${activityRecordsPageDto.userActivityId}"/>
+        <input type="hidden" name="userActivityId" value="${activityRecordsPage.userActivityId}"/>
         <label for="date"><fmt:message key="label.date"/></label>
         <input type="date" name="date" id="date" min="2019-01-01" onchange="checkDate(this)" required/>
         <label for="duration"><fmt:message key="label.duration"/></label>
         <input type="number" name="duration" id="duration" min="10" max="1440" step="10" required/>
+        <input type="hidden" name="userActivityAssigned" value="${activityRecordsPage.assigned}"/>
+        <input type="hidden" name="rowsPerPage" value="${activityRecordsPage.rowsPerPage}"/>
         <input type="submit" value="<fmt:message key="button.save"/>"/>
     </form>
 </body>
