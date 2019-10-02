@@ -15,4 +15,6 @@ public interface UserActivities {
             Boolean assigned);
 
     UserActivity addUserActivity(UserActivity userActivity);
+
+    boolean exists(Long userId, Long activityId);
 }

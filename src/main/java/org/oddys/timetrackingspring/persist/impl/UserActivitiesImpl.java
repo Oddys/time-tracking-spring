@@ -36,4 +36,9 @@ public class UserActivitiesImpl implements UserActivities {
     public UserActivity addUserActivity(UserActivity userActivity) {
         return repository.save(userActivity);
     }
+
+    @Override
+    public boolean exists(Long userId, Long activityId) {
+        return repository.existsByUserUserIdAndActivity_ActivityId(userId, activityId);
+    }
 }

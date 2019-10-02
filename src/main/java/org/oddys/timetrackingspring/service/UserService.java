@@ -25,6 +25,9 @@ public class UserService {
     }
 
     public boolean requestUserActivity(UserActivityDto dto) {
+        if (userActivities.exists(dto.getUserId(), dto.getActivityId())) {
+            return false;
+        }
         UserActivity userActivity = modelMapper.map(dto, UserActivity.class);
         return userActivities.addUserActivity(userActivity).getUserActivityId() != null;
     }
