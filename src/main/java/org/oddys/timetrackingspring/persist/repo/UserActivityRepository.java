@@ -25,4 +25,9 @@ public interface UserActivityRepository extends JpaRepository<UserActivity, Long
             @Param("assigned") Boolean assigned);
 
     boolean existsByUserUserIdAndActivity_ActivityId(Long userId, Long activityId);
+
+    @Modifying
+    @Query(value = "UPDATE user_activities SET status_change_requested = true WHERE user_activity_id = :user_activity_id",
+            nativeQuery = true)
+    int requestStatusChange(@Param("user_activity_id") Long userActivityId);
 }

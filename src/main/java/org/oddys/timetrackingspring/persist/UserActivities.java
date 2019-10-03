@@ -17,4 +17,6 @@ public interface UserActivities {
     UserActivity addUserActivity(UserActivity userActivity);
 
     boolean exists(Long userId, Long activityId);
+
+    boolean requestStatusChange(Long userActivityId);
 }

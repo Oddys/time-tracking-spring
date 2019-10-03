@@ -29,9 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +133,9 @@ public class CabinetController {
             @RequestParam @NotBlank String firstName,
             @RequestParam @NotBlank String lastName,
             Model model) {
-        String messageKey = "user.activity.stop.success";
+        String messageKey = userService.requestUserActivityStatusChange(userActivityId)
+                ? "user.activity.stop.success"
+                : "user.activity.stop.fail";
         model.addAttribute("messageKey", messageKey);
         Map<String, String> parameters = Map.of(
                 "userId", String.valueOf(userId),

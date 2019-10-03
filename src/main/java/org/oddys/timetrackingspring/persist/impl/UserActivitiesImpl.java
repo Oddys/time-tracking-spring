@@ -41,4 +41,9 @@ public class UserActivitiesImpl implements UserActivities {
     public boolean exists(Long userId, Long activityId) {
         return repository.existsByUserUserIdAndActivity_ActivityId(userId, activityId);
     }
+
+    @Override
+    public boolean requestStatusChange(Long userActivityId) {
+        return repository.requestStatusChange(userActivityId) > 0;
+    }
 }
