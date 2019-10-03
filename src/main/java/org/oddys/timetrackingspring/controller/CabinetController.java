@@ -104,6 +104,7 @@ public class CabinetController {
                 ? "user.activity.request.success"
                 : "user.activity.request.fail";
         model.addAttribute("messageKey", messageKey);
+        model.addAttribute("activityName", dto.getActivityName());
         return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
                 FIRST_PAGE, ROWS_PER_PAGE);
     }
