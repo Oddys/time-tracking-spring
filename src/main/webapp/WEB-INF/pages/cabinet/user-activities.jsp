@@ -22,6 +22,7 @@
     </h2>
     <c:if test="${not empty messageKey}">
         <fmt:message key="${messageKey}"/>
+        <c:remove var="messageKey" scope="session"/>
     </c:if>
     <table>
         <tr>
@@ -66,6 +67,9 @@
                         <c:if test="${currentUserActivity.assigned and not currentUserActivity.statusChangeRequested}">
                             <form action="${pageContext.request.contextPath}/cabinet/stop-activity" method="post">
                                 <input type="hidden" name="userActivityId" value="${currentUserActivity.userActivityId}"/>
+                                <input type="hidden" name="userId" value="${userId}"/>
+                                <input type="hidden" name="firstName" value="${firstName}"/>
+                                <input type="hidden" name="lastName" value="${lastName}"/>
                                 <input type="submit" value="<fmt:message key="button.activity.stop"/>"/>
                             </form>
                         </c:if>

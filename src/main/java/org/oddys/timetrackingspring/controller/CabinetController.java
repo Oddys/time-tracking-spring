@@ -13,6 +13,7 @@ import org.oddys.timetrackingspring.dto.UserDto;
 import org.oddys.timetrackingspring.service.AdminService;
 import org.oddys.timetrackingspring.service.CommonService;
 import org.oddys.timetrackingspring.service.UserService;
+import org.oddys.timetrackingspring.util.RequestParametersEncoder;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cabinet")
@@ -42,6 +47,7 @@ public class CabinetController {
     private final AdminService adminService;
     private final UserService userService;
     private final CommonService commonService;
+    private final RequestParametersEncoder paramEncoder;
 
     @GetMapping("")
     public ModelAndView showForm() {
@@ -125,8 +131,19 @@ public class CabinetController {
     }
 
     @PostMapping("/stop-activity")
-    public String stopUserActivity(@RequestParam Long userActivityId) {
-        return "/";  // FIXME
+    public String stopUserActivity(@RequestParam Long userActivityId,
+            @RequestParam @Min(1) Long userId,
+            @RequestParam @NotBlank String firstName,
+            @RequestParam @NotBlank String lastName,
+            Model model) {
+        String messageKey = "user.activity.stop.success";
+        model.addAttribute("messageKey", messageKey);
+        Map<String, String> parameters = Map.of(
+                "userId", String.valueOf(userId),
+                "firstName", String.valueOf(firstName),
+                "lastName", String.valueOf(lastName)
+        );
+        return paramEncoder.encodeQueryParameters("redirect:/cabinet/user-activities", parameters);
     }
 
     @GetMapping("/activity-records")
