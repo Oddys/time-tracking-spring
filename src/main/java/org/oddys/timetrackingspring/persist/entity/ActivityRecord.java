@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ActivityRecord {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long activityRecordId;
 
   @NotNull
