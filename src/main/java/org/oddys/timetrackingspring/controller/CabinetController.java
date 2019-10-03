@@ -13,9 +13,10 @@ import org.oddys.timetrackingspring.dto.UserDto;
 import org.oddys.timetrackingspring.service.AdminService;
 import org.oddys.timetrackingspring.service.CommonService;
 import org.oddys.timetrackingspring.service.UserService;
-import org.oddys.timetrackingspring.util.RequestParametersEncoder;
+import org.oddys.timetrackingspring.util.BundleProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -32,6 +35,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Controller
 @RequestMapping("/cabinet")
@@ -44,7 +48,7 @@ public class CabinetController {
     private final AdminService adminService;
     private final UserService userService;
     private final CommonService commonService;
-    private final RequestParametersEncoder paramEncoder;
+    private final BundleProvider bundleProvider;
 
     @GetMapping("")
     public ModelAndView showForm() {
@@ -132,17 +136,20 @@ public class CabinetController {
             @RequestParam @Min(1) Long userId,
             @RequestParam @NotBlank String firstName,
             @RequestParam @NotBlank String lastName,
-            Model model) {
+            @SessionAttribute @Nullable String lang,
+            RedirectAttributes attributes) {
+        ResourceBundle bundle = bundleProvider.getBundle(lang);
         String messageKey = userService.requestUserActivityStatusChange(userActivityId)
                 ? "user.activity.stop.success"
                 : "user.activity.stop.fail";
-        model.addAttribute("messageKey", messageKey);
+        attributes.addFlashAttribute("message", bundle.getString(messageKey));
         Map<String, String> parameters = Map.of(
                 "userId", String.valueOf(userId),
                 "firstName", String.valueOf(firstName),
                 "lastName", String.valueOf(lastName)
         );
-        return paramEncoder.encodeQueryParameters("redirect:/cabinet/user-activities", parameters);
+        attributes.addAllAttributes(parameters);
+        return "redirect:/cabinet/user-activities";
     }
 
     @GetMapping("/activity-records")
@@ -171,16 +178,20 @@ public class CabinetController {
             @RequestParam Long rowsPerPage,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam Long duration,
-            Model model) {
+            @SessionAttribute @Nullable String lang,
+            RedirectAttributes attributes) {
+        ResourceBundle bundle = bundleProvider.getBundle(lang);
         String messageKey = commonService.addActivityRecord(date, duration, userActivityId)
                 ? "activity.record.add.success"
                 : "activity.record.add.fail";
-        model.addAttribute("messageKey", messageKey);
-        return String.format("redirect:/cabinet/activity-records?userActivityAssigned=%1b&userActivityId=%2d&rowsPerPage=%3d&currentPage=%4d",
-                userActivityAssigned,
-                userActivityId,
-                rowsPerPage,
-                FIRST_PAGE
+        attributes.addFlashAttribute("message", bundle.getString(messageKey));
+        Map<String, ?> parameters = Map.of(
+                "userActivityAssigned", userActivityAssigned,
+                "userActivityId", userActivityId,
+                "rowsPerPage", rowsPerPage,
+                "currentPage", FIRST_PAGE
         );
+        attributes.addAllAttributes(parameters);
+        return "redirect:/cabinet/activity-records";
     }
 }

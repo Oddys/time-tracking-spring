@@ -4,6 +4,7 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
 <%--@elvariable id="userActivities" type="java.util.List"--%>
 <%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
+<%--@elvariable id="message" type="java.lang.String"--%>
 <html>
 <head>
     <title>
@@ -20,10 +21,11 @@
             <fmt:param value="${lastName}"/>
         </fmt:message>
     </h2>
-    <c:if test="${not empty messageKey}">
-        <fmt:message key="${messageKey}"/>
-        <c:remove var="messageKey" scope="session"/>
-    </c:if>
+<%--    <c:if test="${not empty messageKey}">--%>
+<%--        <fmt:message key="${messageKey}"/>--%>
+<%--        <c:remove var="messageKey" scope="session"/>--%>
+<%--    </c:if>--%>
+    ${message}
     <table>
         <tr>
             <th><fmt:message key="title.activity"/></th>

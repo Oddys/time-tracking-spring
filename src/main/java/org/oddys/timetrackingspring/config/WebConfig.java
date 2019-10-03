@@ -2,6 +2,7 @@ package org.oddys.timetrackingspring.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.oddys.timetrackingspring.filter.AuthFilter;
+import org.oddys.timetrackingspring.util.BundleProvider;
 import org.oddys.timetrackingspring.util.ConfigManager;
 import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.RequestParametersEncoder;
@@ -46,5 +47,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public RequestParametersEncoder paramEncoder() {
         return new RequestParametersEncoder(StandardCharsets.UTF_8.toString());
+    }
+
+    @Bean
+    public BundleProvider bundleProvider() {
+        return new BundleProvider();
     }
 }

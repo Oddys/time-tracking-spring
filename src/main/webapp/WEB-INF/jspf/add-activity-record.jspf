@@ -1,15 +1,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%--@elvariable id="messageKey" type="java.lang.String"--%>
+<%--@elvariable id="message" type="java.lang.String"--%>
 <%--@elvariable id="activityRecordsPage" type="org.oddys.timetrackingspring.dto.ActivityRecordsPage"--%>
 <html>
 <head>
 </head>
 <body>
     <h2><fmt:message key="activity.record.add"/> </h2>
-    <c:if test="${not empty messageKey}">
-        <fmt:message key="${messageKey}"/>
-        <c:remove var="messageKey" scope="session"/>
-    </c:if>
+<%--    <c:if test="${not empty messageKey}">--%>
+<%--        <fmt:message key="${messageKey}"/>--%>
+<%--        <c:remove var="messageKey" scope="session"/>--%>
+<%--    </c:if>--%>
+    ${message}
     <form action="add-activity-record" method="post">
         <input type="hidden" name="userActivityId" value="${activityRecordsPage.userActivityId}"/>
         <label for="date"><fmt:message key="label.date"/></label>
