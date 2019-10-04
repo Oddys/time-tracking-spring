@@ -13,17 +13,17 @@ public class UserRequestDto {
     @NotBlank(message = "{field.notblank}")
     private String login;
 
-    @NotBlank
+    @NotBlank(message = "{field.notblank}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{field.notblank}")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "{field.notblank}")
     private String lastName;
 
-    @NotNull
-    @Min(1)
+    @NotNull(message = "{field.notblank}")
+    @Min(value = 1, message = "{field.positive}")
     private Long roleId;
 
     private String roleName;

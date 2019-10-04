@@ -8,24 +8,20 @@
     <title>User data</title>
 </head>
 <body>
-<%--<c:if test="${not empty messageKey}">--%>
-<%--    ${messageKey}--%>
-<%--    <c:remove scope="session" var="messageKey"/>--%>
-<%--</c:if>--%>
 ${message}
 <div class="container">
     <form:form action="${pageContext.request.contextPath}/cabinet/add-user" modelAttribute="userDto"
                class="needs-validation" novalidate="true" method="post">
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="login">Login</label>
+                <label for="login"><fmt:message key="label.login"/> </label>
                 <form:input type="text" class="form-control" id="login" path="login" required="true"/>
                     <div class="invalid-feedback">
                         <form:errors path="login"/>
                     </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="password">Password</label>
+                <label for="password"><fmt:message key="label.password"/></label>
                 <form:input type="password" class="form-control" id="password" path="password" required="true"/>
                     <div class="invalid-feedback">
                         <form:errors path="password"/>
@@ -34,14 +30,14 @@ ${message}
         </div>
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="firstName">First name</label>
+                <label for="firstName"><fmt:message key="label.firstname"/></label>
                 <form:input type="text" class="form-control" id="firstName" path="firstName" required="true"/>
                     <div class="invalid-feedback">
                         <form:errors path="firstName"/>
                     </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="lastName">Last name</label>
+                <label for="lastName"><fmt:message key="label.lastname"/></label>
                 <form:input type="text" class="form-control" id="lastName" path="lastName" required="true"/>
                     <div class="invalid-feedback">
                         <form:errors path="lastName"/>
@@ -50,10 +46,10 @@ ${message}
         </div>
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="roleId">Role</label>
+                <label for="roleId"><fmt:message key="label.role"/></label>
                 <form:select class="custom-select form-inline" path="roleId" id="roleId">
                     <c:forEach var="role" items="${roles}">
-                        <form:option value="${role.id}">${role.name}</form:option>
+                        <form:option value="${role.id}"><fmt:message key="${role.name}"/></form:option>
                     </c:forEach>
                 </form:select>
             </div>
