@@ -1,14 +1,14 @@
 package org.oddys.timetrackingspring.persist.impl;
 
 import lombok.AllArgsConstructor;
-import org.oddys.timetrackingspring.persist.UserAccess;
+import org.oddys.timetrackingspring.persist.Users;
 import org.oddys.timetrackingspring.persist.entity.User;
 import org.oddys.timetrackingspring.persist.repo.UserRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @AllArgsConstructor
-public class UserAccessImpl implements UserAccess {
+public class UsersImpl implements Users {
     private final UserRepository repository;
 
     @Override

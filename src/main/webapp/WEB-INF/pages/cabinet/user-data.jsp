@@ -47,10 +47,10 @@
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="role">Role</label>
-                <!-- FIXME Display all roles from DB -->
                 <select class="custom-select form-inline" name="role" id="role">
-                    <option value="User">User</option>
-                    <option value="Admin">Admin</option>
+                    <c:forEach var="role" items="${roles}">
+                        <option value="role.id">${role.name}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
