@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class UserRequestDto {
     private Long userId;
 
-    @NotNull
+    @NotBlank(message = "{field.notblank}")
     private String login;
 
     @NotBlank

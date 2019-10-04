@@ -3,10 +3,7 @@ package org.oddys.timetrackingspring.controller;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.dto.UserRequestDto;
-import org.oddys.timetrackingspring.persist.entity.User;
 import org.oddys.timetrackingspring.service.SecurityService;
-import org.oddys.timetrackingspring.util.EntityMapper;
-import org.oddys.timetrackingspring.util.ParameterValidator;
 import org.oddys.timetrackingspring.util.PasswordManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,15 +19,15 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class AddUserController {
     private final SecurityService service;
-//    private final ParameterValidator validator;
-//    private final EntityMapper entityMapper;
     private final ModelMapper modelMapper;
     private final PasswordManager passwordManager;
 
     @GetMapping("/cabinet/user-data")
     public String showUserForm(Model model) {
         model.addAttribute("roles", service.findAllRoles());
-        model.addAttribute("userDto", new UserRequestDto());
+        if (!model.containsAttribute("userDto")) {
+            model.addAttribute("userDto", new UserRequestDto());
+        }
         return "/cabinet/user-data";
     }
 
@@ -39,6 +36,8 @@ public class AddUserController {
             BindingResult result,
             RedirectAttributes attributes) {
         if (result.hasErrors()) {
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.userDto", result);
+            attributes.addFlashAttribute("userDto", userDto);
             return "redirect:/cabinet/user-data";
         }
         userDto.setPassword(passwordManager.hashPassword(userDto.getPassword()));
@@ -48,16 +47,4 @@ public class AddUserController {
         attributes.addFlashAttribute("message", message);
         return "redirect:/cabinet/user-data";
     }
-
-//    @PostMapping("/cabinet/add-user")
-//    public String addUser(HttpServletRequest request) {
-//        if (!validator.isValidAddUser(request)) {  // FIXME Make to work with a session
-//            return "redirect:/user-data";
-//        }
-//        String messageKey = service.addUser(entityMapper.mapUser(request))  // FIXME to user a property
-//                ? "Added successfully"
-//                : "User already exists";
-//        request.getSession().setAttribute("messageKey", messageKey);
-//        return "redirect:/cabinet/user-data";
-//    }
 }

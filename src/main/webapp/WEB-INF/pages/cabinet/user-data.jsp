@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%--@elvariable id="message" type="java.lang.String"--%>
@@ -19,32 +20,32 @@ ${message}
             <div class="col-md-4 mb-3">
                 <label for="login">Login</label>
                 <form:input type="text" class="form-control" id="login" path="login" required="true"/>
-                <%--                <div class="invalid-feedback">--%>
-                <%--                    Please, provide a valid input.--%>
-                <%--                </div>--%>
+                    <div class="invalid-feedback">
+                        <form:errors path="login"/>
+                    </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="password">Password</label>
                 <form:input type="password" class="form-control" id="password" path="password" required="true"/>
-                <%--                <div class="invalid-feedback">--%>
-                <%--                    Please, provide a valid input.--%>
-                <%--                </div>--%>
+                    <div class="invalid-feedback">
+                        <form:errors path="password"/>
+                    </div>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="firstName">First name</label>
                 <form:input type="text" class="form-control" id="firstName" path="firstName" required="true"/>
-                <%--                <div class="invalid-feedback">--%>
-                <%--                    Please, provide a valid input.--%>
-                <%--                </div>--%>
+                    <div class="invalid-feedback">
+                        <form:errors path="firstName"/>
+                    </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="lastName">Last name</label>
                 <form:input type="text" class="form-control" id="lastName" path="lastName" required="true"/>
-                <%--                <div class="invalid-feedback">--%>
-                <%--                    Please, provide a valid input.--%>
-                <%--                </div>--%>
+                    <div class="invalid-feedback">
+                        <form:errors path="lastName"/>
+                    </div>
             </div>
         </div>
         <div class="form-row">
@@ -60,23 +61,7 @@ ${message}
         <button class="btn btn-primary" type="submit"><fmt:message key="button.save"/></button>
     </form:form>
 </div>
-<%--    <form action="controller" method="post">--%>
-<%--        <input type="hidden" name="command" value="add_user"/>--%>
-<%--        <label for="login">Login</label>--%>
-<%--        <input type="text" name="login" value="" id="login" required/>--%>
-<%--        <label for="password">Password</label>--%>
-<%--        <input type="password" name="password" value="" id="password" required/>--%>
-<%--        <label for="firstName">First name</label>--%>
-<%--        <input type="text" name="firstName" value="" id="firstName" required/>--%>
-<%--        <label for="lastName">Last name</label>--%>
-<%--        <input type="text" name="lastName" value="" id="lastName" required/>--%>
-<%--        <label for="role">Role</label>--%>
-<%--        <select name="role" id="role">--%>
-<%--            <option value="User">User</option>--%>
-<%--            <option value="Admin">Admin</option>--%>
-<%--        </select>--%>
-<%--        <input type="submit" value="<fmt:message key="button.save"/>"/>--%>
-<%--    </form>--%>
+
 <form action="${pageContext.request.contextPath}">
     <input class="btn btn-secondary" type="submit" value="<fmt:message key="button.main"/>"/>
 </form>
