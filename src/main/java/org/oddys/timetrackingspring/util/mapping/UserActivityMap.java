@@ -1,4 +1,4 @@
-package org.oddys.timetrackingspring.util;
+package org.oddys.timetrackingspring.util.mapping;
 
 import org.modelmapper.PropertyMap;
 import org.oddys.timetrackingspring.dto.UserActivityDto;

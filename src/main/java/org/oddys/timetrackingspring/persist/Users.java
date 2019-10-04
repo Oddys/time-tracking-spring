@@ -7,5 +7,5 @@ public interface Users {
 
     boolean exists(String login);
 
-    boolean add(User user);
+    User add(User user);
 }

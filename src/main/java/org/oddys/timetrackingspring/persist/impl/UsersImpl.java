@@ -22,7 +22,7 @@ public class UsersImpl implements Users {
     }
 
     @Override
-    public boolean add(User user) {
-        return repository.save(user) != null;
+    public User add(User user) {
+        return repository.save(user);
     }
 }
