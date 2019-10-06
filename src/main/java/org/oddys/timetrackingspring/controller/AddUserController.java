@@ -35,10 +35,11 @@ public class AddUserController {
     }
 
     @PostMapping("/cabinet/add-user")
-    public String addUser(@Valid @ModelAttribute("userDto") UserRequestDto userDto,
+    public String addUser(@ModelAttribute("userDto") @Valid UserRequestDto userDto,
             BindingResult result, @SessionAttribute @Nullable String lang,
             RedirectAttributes attributes) {
         if (result.hasErrors()) {
+            System.out.println("Error");
             attributes.addFlashAttribute("org.springframework.validation.BindingResult.userDto", result);
             attributes.addFlashAttribute("userDto", userDto);
             return "redirect:/cabinet/user-data";
