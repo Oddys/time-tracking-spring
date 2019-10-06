@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.oddys.timetrackingspring.dto.RoleDto;
+import org.oddys.timetrackingspring.dto.UserDto;
 import org.oddys.timetrackingspring.dto.UserRequestDto;
 import org.oddys.timetrackingspring.persist.Roles;
 import org.oddys.timetrackingspring.persist.Users;
 import org.oddys.timetrackingspring.persist.entity.User;
+import org.oddys.timetrackingspring.util.PasswordManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class SecurityService {  // TODO Consider moving SignIn and SignOut here
     private final Users users;
     private final Roles roles;
+    private final PasswordManager passwordManager;
     private final ModelMapper modelMapper;
 
     public boolean addUser(UserRequestDto userDto) {
@@ -36,5 +39,15 @@ public class SecurityService {  // TODO Consider moving SignIn and SignOut here
         return roles.findAll().stream()
                 .map(r -> modelMapper.map(r, RoleDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public UserDto signIn(String login, char[] password) {
+        User user = users.findByLogin(login);
+        UserDto userDto = null;
+        if (passwordManager.checkCredentials(login, password, user)) {
+            userDto = modelMapper.map(user, UserDto.class);
+        }
+        passwordManager.invalidate(password);
+        return userDto;
     }
 }

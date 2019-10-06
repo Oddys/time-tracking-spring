@@ -1,11 +1,9 @@
+<%--@elvariable id="message" type="java.lang.String"--%>
 <html>
 <head>
 </head>
 <body>
-    <c:if test="${not empty messageKey}">
-        <fmt:message key="${messageKey}"/>
-        <c:set var="messageKey" value="" scope="session"/>
-    </c:if><br/>
+    <div class="text-warning">${message}</div>
     <form action="signin" method="post">
         <input type="hidden" name="command" value="signin"/>
         <div class="form-group">
