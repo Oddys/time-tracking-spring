@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/scripts/script.js"></script>
 </head>
-<body>
-    <header>
-        <h1><a href="${pageContext.request.contextPath}"><fmt:message key="title.main"/></a></h1>
+<body class="mx-5 my-4 px-4 py-4">
+    <header class="mb-3 pb-1">
+        <h1 class="h1"><a href="${pageContext.request.contextPath}"><fmt:message key="title.main"/></a></h1>
     </header>
-    <form action="${pageContext.request.contextPath}/lang">
-        <input type="hidden" name="sentFromPage" value="${pageContext.request.servletPath}?${pageContext.request.queryString}"/>
-        <select name="lang" onchange="submit()">
-            <option value="en" ${lang == 'en' ? 'selected' : ''}><fmt:message key="lang.en"/></option>
-            <option value="uk" ${lang == 'uk' ? 'selected' : ''}><fmt:message key="lang.ua"/></option>
-        </select>
-    </form>
+    <form action="${pageContext.request.contextPath}/lang" class="form-inline">
+            <input type="hidden" name="sentFromPage" value="${pageContext.request.servletPath}?${pageContext.request.queryString}"/>
+            <select name="lang" onchange="submit()" class="cols-xs-1 custom-select">
+                <option value="en" ${lang == 'en' ? 'selected' : ''}><fmt:message key="lang.en"/></option>
+                <option value="uk" ${lang == 'uk' ? 'selected' : ''}><fmt:message key="lang.ua"/></option>
+            </select>
+        </form>
 </body>
 </html>
