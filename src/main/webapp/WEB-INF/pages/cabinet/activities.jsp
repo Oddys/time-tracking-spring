@@ -45,7 +45,7 @@
                             <form:input type="hidden" path="userLastName" value="${user.lastName}"/>
                             <form:input type="hidden" path="activityId" value="${activity.id}"/>
                             <form:input type="hidden" path="activityName" value="${activity.name}"/>
-                            <input type="submit" value="<fmt:message key="table.column.add.to.my.activities"/>"/>
+                            <input type="submit" value="<fmt:message key="table.column.add.to.my.activities"/>" class="btn btn-secondary"/>
                         </form:form>
                     </td>
                 </c:if>

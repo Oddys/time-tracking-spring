@@ -26,7 +26,7 @@
 <%--        <c:remove var="messageKey" scope="session"/>--%>
 <%--    </c:if>--%>
     ${message}
-    <table>
+    <table class="table table-hover table-striped table-bordered">
         <tr>
             <th><fmt:message key="title.activity"/></th>
             <th><fmt:message key="table.header.status"/> </th>
@@ -61,7 +61,7 @@
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>
                         <form:input type="hidden" path="currentPage" value="0"/>
                         <form:input type="hidden" path="rowsPerPage" value="5"/>
-                        <input type="submit" value="<fmt:message key="button.show"/>"/>
+                        <input type="submit" value="<fmt:message key="button.show"/>" class="btn btn-secondary"/>
                     </form:form>
                 </td>
                 <c:if test="${user.roleName eq 'USER'}">
@@ -72,7 +72,7 @@
                                 <input type="hidden" name="userId" value="${userId}"/>
                                 <input type="hidden" name="firstName" value="${firstName}"/>
                                 <input type="hidden" name="lastName" value="${lastName}"/>
-                                <input type="submit" value="<fmt:message key="button.activity.stop"/>"/>
+                                <input type="submit" value="<fmt:message key="button.activity.stop"/>" class="btn btn-secondary"/>
                             </form>
                         </c:if>
                     </td>
@@ -81,7 +81,7 @@
         </c:forEach>
     </table>
     <form action="${pageContext.request.contextPath}">
-        <input type="submit" value="<fmt:message key="button.main"/>"/>
+        <input type="submit" value="<fmt:message key="button.main"/>" class="btn btn-secondary"/>
     </form>
 </body>
 </html>
