@@ -9,7 +9,6 @@
     <title><fmt:message key="title.activities"/></title>
 </head>
 <body>
-    <h2><fmt:message key="title.activities"/></h2>
     <c:if test="${not empty messageKey}">
         <fmt:message key="${messageKey}">
             <fmt:param value="${activityName}"/>
@@ -22,10 +21,11 @@
         <form action="${pageContext.request.contextPath}/cabinet/add-activity" method="post">
             <label for="activityName"></label>
             <input type="text" name="activityName" id="activityName" placeholder="<fmt:message key="activity.enter"/>" required/>
-            <input type="submit" value="<fmt:message key="button.send"/>"/>
+            <input type="submit" value="<fmt:message key="button.send"/>" class="btn btn-primary"/>
         </form>
     </c:if>
-    <table>
+    <h3><fmt:message key="title.activities"/></h3>
+    <table class="table table-hover table-striped table-bordered">
         <tr>
             <th><fmt:message key="table.column.name"/> </th>
             <c:if test="${user.roleName eq 'USER'}">
@@ -91,7 +91,7 @@
         </nav>
     </c:if>
     <form action="${pageContext.request.contextPath}">
-        <input type="submit" value="<fmt:message key="button.main"/>"/>
+        <input type="submit" value="<fmt:message key="button.main"/>" class="btn btn-secondary"/>
     </form>
 </body>
 </html>
