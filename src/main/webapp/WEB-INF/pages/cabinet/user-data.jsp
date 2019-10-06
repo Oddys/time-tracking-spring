@@ -10,7 +10,7 @@
 <body>
     <div class="text-info">${message}</div>
 <h2><fmt:message key="title.add.user"/> </h2>
-    <div style="width: 40%">
+    <div style="width: 50%">
         <form:form action="${pageContext.request.contextPath}/cabinet/add-user" modelAttribute="userDto"
                    class="needs-validation" novalidate="true" method="post">
             <div class="form-row">

@@ -6,7 +6,7 @@
     <title><fmt:message key="title.main"/> - <fmt:message key="title.cabinet"/></title>
 </head>
 <body>
-    <div class="my-5">
+    <div class="my-3">
         <h2 class="h2"><fmt:message key="title.cabinet"/></h2>
         <p>
             <fmt:message key="greet.user">
