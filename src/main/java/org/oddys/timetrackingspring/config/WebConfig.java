@@ -3,9 +3,6 @@ package org.oddys.timetrackingspring.config;
 import lombok.extern.slf4j.Slf4j;
 import org.oddys.timetrackingspring.filter.AuthFilter;
 import org.oddys.timetrackingspring.util.BundleProvider;
-import org.oddys.timetrackingspring.util.ConfigManager;
-import org.oddys.timetrackingspring.util.ParameterValidator;
-import org.oddys.timetrackingspring.util.RequestParametersEncoder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 @Configuration
@@ -35,26 +31,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ParameterValidator parameterValidator() {
-        return new ParameterValidator();
-    }
-
-    @Bean
     public FilterRegistrationBean<AuthFilter> authFilter() {
         FilterRegistrationBean<AuthFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new AuthFilter());
         bean.addUrlPatterns("/cabinet/*");
         return bean;
-    }
-
-    @Bean
-    public ConfigManager configManager() {
-        return new ConfigManager();
-    }
-
-    @Bean
-    public RequestParametersEncoder paramEncoder() {
-        return new RequestParametersEncoder(StandardCharsets.UTF_8.toString());
     }
 
     @Bean
