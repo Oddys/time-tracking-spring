@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
+<%--@elvariable id="user" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <%--@elvariable id="userActivities" type="java.util.List"--%>
 <%--@elvariable id="targetUser" type="org.oddys.timetrackingspring.dto.UserDto"--%>
 <%--@elvariable id="message" type="java.lang.String"--%>
@@ -21,11 +21,7 @@
             <fmt:param value="${lastName}"/>
         </fmt:message>
     </h2>
-<%--    <c:if test="${not empty messageKey}">--%>
-<%--        <fmt:message key="${messageKey}"/>--%>
-<%--        <c:remove var="messageKey" scope="session"/>--%>
-<%--    </c:if>--%>
-    ${message}
+    <div class="text-info">${message}</div>
     <table class="table table-hover table-striped table-bordered">
         <tr>
             <th><fmt:message key="title.activity"/></th>
@@ -55,7 +51,6 @@
                     </c:choose>
                 </td>
                 <td>
-                        <%--@elvariable id="activityRecordsPageRequestDto" type="org.oddys.timetrackingspring.dto.ActivityRecordsPageRequestDto"--%>
                     <form:form action="activity-records" modelAttribute="activityRecordsPageRequestDto" method="get">
                         <form:input type="hidden" path="userActivityId" value="${currentUserActivity.userActivityId}"/>
                         <form:input type="hidden" path="userActivityAssigned" value="${currentUserActivity.assigned}"/>

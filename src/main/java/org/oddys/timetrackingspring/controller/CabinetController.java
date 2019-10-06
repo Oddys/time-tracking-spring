@@ -41,7 +41,7 @@ import java.util.ResourceBundle;
 @RequestMapping("/cabinet")
 @AllArgsConstructor
 @Validated
-@SessionAttributes({"user", "messageKey", "activityName"})
+@SessionAttributes("user")
 public class CabinetController {
     private final int FIRST_PAGE = 0;
     private final int ROWS_PER_PAGE = 5;
@@ -72,11 +72,15 @@ public class CabinetController {
 
     @PostMapping("/change-user-activity-status")
     public String changeUserActivityStatus(@RequestParam @Min(value=1) Long userActivityId,
-            @RequestParam Boolean currentAssigned, Model model) {
+            @RequestParam Boolean currentAssigned, @SessionAttribute @Nullable String lang,
+            RedirectAttributes attributes) {
         adminService.changeUserActivityStatus(userActivityId, currentAssigned);
-        model.addAttribute("messageKey", "user.activity.status.changed");
-        return String.format("redirect:/cabinet/user-activity-requests?currentPage=%d&rowsPerPage=%d",
-            FIRST_PAGE, ROWS_PER_PAGE);
+        ResourceBundle bundle = bundleProvider.getBundle(lang);
+        attributes.addFlashAttribute("message",
+                bundle.getString("user.activity.status.changed"));
+        attributes.addAttribute("currentPage", FIRST_PAGE);
+        attributes.addAttribute("rowsPerPage", ROWS_PER_PAGE);
+        return "redirect:/cabinet/user-activity-requests";
     }
 
     @GetMapping("/activities")
@@ -95,25 +99,31 @@ public class CabinetController {
     }
 
     @PostMapping("/add-activity")
-    public String addActivity(@RequestParam @NotBlank String activityName, Model model) {
+    public String addActivity(@RequestParam @NotBlank String activityName,
+            @SessionAttribute @Nullable String lang, RedirectAttributes attributes) {
         String messageKey = adminService.addActivity(activityName)
                 ? "activity.add.success"
                 : "activity.add.fail";
-        model.addAttribute("messageKey", messageKey);
-        model.addAttribute("activityName", activityName);
-        return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
-                FIRST_PAGE, ROWS_PER_PAGE);
+        ResourceBundle bundle = bundleProvider.getBundle(lang);
+        String message = String.format(bundle.getString(messageKey), activityName);
+        attributes.addFlashAttribute("message", message);
+        attributes.addAttribute("currentPage", FIRST_PAGE);
+        attributes.addAttribute("rowsPerPage", ROWS_PER_PAGE);
+        return "redirect:/cabinet/activities";
     }
 
     @PostMapping("/request-user-activity")
-    public String requestUserActivity(@Valid UserActivityDto dto, Model model) {
+    public String requestUserActivity(@Valid UserActivityDto dto,
+            @SessionAttribute @Nullable String lang, RedirectAttributes attributes) {
         String messageKey = userService.requestUserActivity(dto)
                 ? "user.activity.request.success"
                 : "user.activity.request.fail";
-        model.addAttribute("messageKey", messageKey);
-        model.addAttribute("activityName", dto.getActivityName());
-        return String.format("redirect:/cabinet/activities?currentPage=%d&rowsPerPage=%d",
-                FIRST_PAGE, ROWS_PER_PAGE);
+        ResourceBundle bundle = bundleProvider.getBundle(lang);
+        String message = String.format(bundle.getString(messageKey), dto.getActivityName());
+        attributes.addFlashAttribute("message", message);
+        attributes.addAttribute("currentPage", FIRST_PAGE);
+        attributes.addAttribute("rowsPerPage", ROWS_PER_PAGE);
+        return "redirect:/cabinet/activities";
     }
 
     @GetMapping("/user-activities")

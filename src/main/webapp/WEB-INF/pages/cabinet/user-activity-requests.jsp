@@ -1,16 +1,14 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%--@elvariable id="pageDto" type="org.oddys.timetrackingspring.dto.PageDto"--%>
+<%--@elvariable id="message" type="java.lang.String"--%>
 <html>
 <head>
     <title><fmt:message key="title.user.activity.requests"/></title>
 </head>
 <body>
 <h2><fmt:message key="title.user.activity.requests"/> </h2>
-<c:if test="${not empty messageKey}">
-    <fmt:message key="${messageKey}"/>
-    <c:remove var="messageKey" scope="session"/>
-</c:if>
+<div class="text-info">${message}</div>
 <table class="table table-hover table-striped table-bordered">
     <tr>
         <th><fmt:message key="table.column.user.id"/></th>

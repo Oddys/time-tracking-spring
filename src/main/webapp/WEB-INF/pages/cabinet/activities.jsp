@@ -1,5 +1,5 @@
 <%--@elvariable id="user" type="org.oddys.timetracking.dto.UserDto"--%>
-<%--@elvariable id="activityName" type="String"--%>
+<%--@elvariable id="message" type="java.lang.String"--%>
 <%--@elvariable id="pageDto" type="org.oddys.timetrackingspring.dto.PageDto"--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
@@ -9,13 +9,7 @@
     <title><fmt:message key="title.activities"/></title>
 </head>
 <body>
-    <c:if test="${not empty messageKey}">
-        <fmt:message key="${messageKey}">
-            <fmt:param value="${activityName}"/>
-            <c:remove var="messageKey" scope="session"/>
-            <c:remove var="activityName" scope="session"/>
-        </fmt:message>
-    </c:if>
+    <div class="text-info">${message}</div>
     <c:if test="${user.roleName eq 'ADMIN'}">
         <h3><fmt:message key="title.activity.add"/> </h3>
         <form action="${pageContext.request.contextPath}/cabinet/add-activity" method="post">
