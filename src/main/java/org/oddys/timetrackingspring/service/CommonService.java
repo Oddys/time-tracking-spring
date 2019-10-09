@@ -24,12 +24,12 @@ public class CommonService {
     private final Activities activities;
     private final ActivityRecords activityRecords;
     private final ModelMapper modelMapper;
-
-    @Transactional(readOnly = true)
-    public boolean activityExists(String activityName) {
-        Activity activity = activities.findByName(activityName);
-        return activity != null;
-    }
+//
+//    @Transactional(readOnly = true)
+//    public boolean activityExists(String activityName) {
+//        Activity activity = activities.findByName(activityName);
+//        return activity != null;
+//    }
 
     @Transactional(readOnly = true)
     public Page<ActivityDto> findAll(int currentPage, int rowsPerPage) {
