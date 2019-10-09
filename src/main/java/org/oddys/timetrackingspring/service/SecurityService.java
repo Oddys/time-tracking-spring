@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Transactional
 @Slf4j
 @AllArgsConstructor
-public class SecurityService {  // TODO Consider moving SignIn and SignOut here
+public class SecurityService {
     private final Users users;
     private final Roles roles;
     private final PasswordManager passwordManager;
