@@ -58,7 +58,7 @@
             <button class="btn btn-primary" type="submit"><fmt:message key="button.save"/></button>
         </form:form>
     </div>
-<form action="${pageContext.request.contextPath}">
+<form action="${pageContext.request.contextPath}/cabinet">
     <input class="btn btn-secondary" type="submit" value="<fmt:message key="button.main"/>"/>
 </form>
     <script>validate();</script>

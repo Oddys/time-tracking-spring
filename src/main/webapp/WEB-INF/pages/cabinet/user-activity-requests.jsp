@@ -78,7 +78,7 @@
         </ul>
     </nav>
 </c:if>
-<form action="${pageContext.request.contextPath}">
+<form action="${pageContext.request.contextPath}/cabinet">
     <input type="submit" value="<fmt:message key="button.main"/>" class="btn btn-secondary"/>
 </form>
 </body>

@@ -82,7 +82,7 @@
             </c:if>
         </ul>
     </c:if>
-    <form action="user-activities">
+    <form action="${pageContext.request.contextPath}/cabinet/user-activities">
         <input type="hidden" name="userId" value="${user.userId}"/>
         <input type="hidden" name="firstName" value="${user.firstName}"/>
         <input type="hidden" name="lastName" value="${user.lastName}"/>
