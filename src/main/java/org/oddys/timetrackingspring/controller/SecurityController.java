@@ -1,6 +1,7 @@
 package org.oddys.timetrackingspring.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.oddys.timetrackingspring.dto.UserDto;
 import org.oddys.timetrackingspring.dto.UserRequestDto;
 import org.oddys.timetrackingspring.service.SecurityService;
@@ -21,11 +22,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Controller
 @AllArgsConstructor
 @Validated
+@Slf4j
 public class SecurityController {
     private final SecurityService service;
     private final PasswordManager passwordManager;
@@ -65,6 +68,8 @@ public class SecurityController {
         UserDto userDto = service.signIn(login, password.toCharArray());
         if (userDto != null) {
             attributes.addFlashAttribute("user", userDto);
+            log.info(String.format("%s %s (%s) signed in", userDto.getFirstName(),
+                    userDto.getLastName(), userDto.getLogin()));
             return "redirect:/cabinet";
         }
         ResourceBundle bundle = bundleProvider.getBundle(lang);
@@ -75,7 +80,12 @@ public class SecurityController {
 
     @GetMapping("/signout")
     public String signOut(HttpSession session) {
+        String user = Optional.ofNullable((UserDto) session.getAttribute("user"))
+                .map(u -> String.format("%s %s (%s)", u.getFirstName(),
+                        u.getLastName(), u.getLogin()))
+                .orElse("User with the expired session");
         session.invalidate();
+        log.info(user + " signed out");
         return "redirect:/";
     }
 }
